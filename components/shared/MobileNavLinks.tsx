@@ -17,8 +17,8 @@ export function MobileNavLinks() {
         {normalNavLinks.map((navLink) => {
           const isActive = pathname === navLink.route;
           return (
-            <SheetClose key={navLink.route} asChild>
-              <li>
+            <li key={navLink.route}>
+              <SheetClose asChild>
                 <Link
                   href={navLink.route}
                   className={cn(
@@ -38,8 +38,8 @@ export function MobileNavLinks() {
                   />
                   <p className="text-sm">{navLink.label}</p>
                 </Link>
-              </li>
-            </SheetClose>
+              </SheetClose>
+            </li>
           );
         })}
       </ul>
@@ -50,8 +50,8 @@ export function MobileNavLinks() {
           {premiumNavLinks.map((navLink) => {
             const isActive = pathname === navLink.route;
             return (
-              <SheetClose key={navLink.route} asChild>
-                <li>
+              <li key={navLink.route}>
+                <SheetClose asChild>
                   <Link
                     href={navLink.route}
                     className={cn(
@@ -71,8 +71,8 @@ export function MobileNavLinks() {
                     />
                     <p className="text-sm">{navLink.label}</p>
                   </Link>
-                </li>
-              </SheetClose>
+                </SheetClose>
+              </li>
             );
           })}
         </ul>

@@ -1,3 +1,3 @@
-export default function CreditsPage() {
+export default async function CreditsPage() {
   return <div>CreditsPage</div>;
 }
