@@ -1,19 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import { NavLinks } from "./NavLinks";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
-import { MobileNavLinks } from "./MobileNavLinks";
 import ClerkUserButtonWithName from "./ClerkUserButtonWithName";
 import ClerkUserButton from "./ClerkUserButton";
+import { MobileSidebar } from "./MobileSidebar";
 
 export default function Mobilenav() {
   return (
@@ -44,7 +36,7 @@ export default function Mobilenav() {
           </SignedOut>
 
           {/* SMALL SCREENS */}
-          <nav className="hidden max-md:block">
+          <nav className="md:hidden">
             <MobileSidebar />
           </nav>
         </div>
@@ -54,46 +46,5 @@ export default function Mobilenav() {
         <NavLinks />
       </nav>
     </header>
-  );
-}
-
-function MobileSidebar() {
-  return (
-    <Sheet>
-      <SheetTrigger className="flex items-center">
-        <MenuIcon />
-      </SheetTrigger>
-
-      <SheetContent>
-        <aside className="size-full">
-          <div className="flex flex-col justify-between gap-8 divide-y">
-            {/* LOGO / HOME PAGE */}
-            <SheetHeader>
-              <Link href="/">
-                <Image
-                  src="/assets/images/logo-text.svg"
-                  alt="logo"
-                  width={180}
-                  height={28}
-                />
-              </Link>
-            </SheetHeader>
-
-            {/* NAV LINKS */}
-            <div className="size-full pt-4">
-              <MobileNavLinks />
-            </div>
-
-            <div className="flex justify-center pt-4">
-              <SignedOut>
-                <Button className="w-full">
-                  <Link href="/sign-in">Login</Link>
-                </Button>
-              </SignedOut>
-            </div>
-          </div>
-        </aside>
-      </SheetContent>
-    </Sheet>
   );
 }
