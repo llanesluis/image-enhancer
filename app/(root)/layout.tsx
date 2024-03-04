@@ -17,8 +17,6 @@ export default function InnerRootLayout({ children }: InnerRootLayoutProps) {
       <main className="flex-grow p-4 md:p-8 lg:overflow-y-auto lg:p-12">
         {children}
       </main>
-      {/* todo: agregar footer */}
-      <footer>xdxdxd</footer>
     </div>
   );
 }

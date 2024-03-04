@@ -23,7 +23,7 @@ export function MobileNavLinks() {
                   href={navLink.route}
                   className={cn(
                     "flex max-h-12 flex-1 items-center justify-normal gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10 ",
-                    isActive && "bg-blue-700/30 text-blue-600",
+                    isActive && "bg-blue-900/20 text-blue-600",
                   )}
                 >
                   <Image
@@ -56,7 +56,7 @@ export function MobileNavLinks() {
                     href={navLink.route}
                     className={cn(
                       "flex max-h-12 flex-1 items-center justify-normal gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10 ",
-                      isActive && "bg-blue-700/30 text-blue-600",
+                      isActive && "bg-blue-900/20 text-blue-600",
                     )}
                   >
                     <Image

@@ -22,8 +22,7 @@ export function NavLinks() {
                 href={navLink.route}
                 className={cn(
                   "group flex min-h-12 flex-1 items-center justify-center gap-1 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10 lg:justify-normal lg:gap-2",
-                  navLink.route === "/" && "hidden md:flex",
-                  isActive && "bg-blue-700/30 text-blue-600",
+                  isActive && "bg-blue-900/20 text-blue-600",
                 )}
               >
                 <Image
@@ -62,8 +61,7 @@ export function NavLinks() {
                   href={navLink.route}
                   className={cn(
                     "group relative flex min-h-12 flex-1 items-center justify-center gap-1 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10 lg:justify-normal lg:gap-2",
-                    navLink.route === "/" && "hidden md:flex",
-                    isActive && "bg-blue-700/30 text-blue-600",
+                    isActive && "bg-blue-900/20 text-blue-600",
                   )}
                 >
                   <Image

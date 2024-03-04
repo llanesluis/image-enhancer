@@ -38,7 +38,7 @@ export default function Mobilenav() {
             </div>
           </SignedIn>
           <SignedOut>
-            <Button>
+            <Button className="hidden sm:block">
               <Link href="/sign-in">Login</Link>
             </Button>
           </SignedOut>
