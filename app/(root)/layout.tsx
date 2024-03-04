@@ -1,5 +1,5 @@
-import { UserButton } from "@clerk/nextjs";
-import Link from "next/link";
+import Mobilenav from "@/components/shared/Mobilenav";
+import Sidenav from "@/components/shared/Sidenav";
 import { ReactNode } from "react";
 
 interface InnerRootLayoutProps {
@@ -8,15 +8,17 @@ interface InnerRootLayoutProps {
 
 export default function InnerRootLayout({ children }: InnerRootLayoutProps) {
   return (
-    <main className="bg-red-400 p-12">
-      {/* NAVS */}
-      <header className="flex justify-between bg-green-300 p-2">
-        <h1>navbar xd</h1>
-        <Link href={"/sign-in"}>Sign In</Link>
-        <Link href={"/sign-up"}>Sign Up</Link>
-        <UserButton afterSignOutUrl="/" />
-      </header>
-      {children}
-    </main>
+    <div className="flex h-screen flex-col lg:flex-row lg:overflow-hidden">
+      <aside className="w-full flex-none shadow shadow-foreground/20 lg:h-full lg:w-64">
+        {/* NAVS */}
+        <Mobilenav />
+        <Sidenav />
+      </aside>
+      <main className="flex-grow p-4 md:p-8 lg:overflow-y-auto lg:p-12">
+        {children}
+      </main>
+      {/* todo: agregar footer */}
+      <footer>xdxdxd</footer>
+    </div>
   );
 }

@@ -8,9 +8,9 @@ export function NextThemeIndicator() {
 
   if (process.env.NODE_ENV === "production") return null;
   return (
-    <div className="absolute  z-50">
+    <div className="absolute z-[150]">
       <select
-        className="fixed bottom-2 right-2 rounded-lg bg-primary/80 px-2 py-1 text-secondary/80"
+        className="fixed bottom-2 right-2 rounded-lg border-2 border-foreground bg-background/80 px-2 py-1 text-foreground/80"
         value={resolvedTheme}
         onChange={(e) => setTheme(e.target.value)}
       >

@@ -5,5 +5,5 @@ interface TransformationsPageProps {
 export default function TransformationsPage({
   params: { id },
 }: TransformationsPageProps) {
-  return <div>TransformationsPage</div>;
+  return <div>{id}</div>;
 }

@@ -28,10 +28,14 @@ export default function RootLayout({
         variables: { colorPrimary: "#0179FF" },
       }}
     >
-      <html lang="en">
-        <body className={cn("font-montserrat", montserrat.variable)}>
+      <html lang="es">
+        <body
+          className={cn("font-montserrat antialiased", montserrat.variable)}
+        >
           <ThemeProvider>
             {children}
+
+            {/* Solo se muestran en dev mode */}
             <TailwindIndicator />
             <NextThemeIndicator />
           </ThemeProvider>
