@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import ClerkUserButton from "./ClerkUserButton";
+
 import { NavLinks } from "./NavLinks";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import {
   Sheet,
@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { MobileNavLinks } from "./MobileNavLinks";
+import ClerkUserButtonWithName from "./ClerkUserButtonWithName";
+import ClerkUserButton from "./ClerkUserButton";
 
 export default function Mobilenav() {
   return (
@@ -27,16 +29,19 @@ export default function Mobilenav() {
         </Link>
 
         <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <SignedIn>
+          <SignedIn>
+            <div className="block sm:hidden">
               <ClerkUserButton />
-            </SignedIn>
-            <SignedOut>
-              <Button>
-                <Link href="/sign-in">Login</Link>
-              </Button>
-            </SignedOut>
-          </div>
+            </div>
+            <div className="hidden sm:block">
+              <ClerkUserButtonWithName />
+            </div>
+          </SignedIn>
+          <SignedOut>
+            <Button>
+              <Link href="/sign-in">Login</Link>
+            </Button>
+          </SignedOut>
 
           {/* SMALL SCREENS */}
           <nav className="hidden max-md:block">

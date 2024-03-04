@@ -41,6 +41,9 @@ export const navLinks = [
   },
 ];
 
+export const normalNavLinks = navLinks.slice(0, 6);
+export const premiumNavLinks = navLinks.slice(6);
+
 export const plans = [
   {
     _id: 1,

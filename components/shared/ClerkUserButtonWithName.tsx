@@ -5,7 +5,7 @@ import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 import React from "react";
 
-export default function ClerkUserButton() {
+export default function ClerkUserButtonWithName() {
   const { resolvedTheme } = useTheme();
   return (
     <UserButton
@@ -13,6 +13,7 @@ export default function ClerkUserButton() {
       appearance={{
         baseTheme: resolvedTheme === "dark" ? dark : undefined,
       }}
+      showName
     />
   );
 }

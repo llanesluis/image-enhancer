@@ -1,6 +1,6 @@
 "use client";
 
-import { navLinks } from "@/constants";
+import { navLinks, normalNavLinks, premiumNavLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
@@ -9,8 +9,6 @@ import { usePathname } from "next/navigation";
 
 export function NavLinks() {
   const pathname = usePathname();
-  const normalNavLinks = navLinks.slice(0, 6);
-  const premiumNavLinks = navLinks.slice(6);
 
   return (
     <>

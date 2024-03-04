@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NavLinks } from "./NavLinks";
-import ClerkUserButton from "./ClerkUserButton";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "../ui/button";
+import ClerkUserButtonWithName from "./ClerkUserButtonWithName";
 
 export default function Sidenav() {
   return (
@@ -24,7 +24,7 @@ export default function Sidenav() {
 
         <div className="flex min-h-12 items-center justify-center pt-4 text-right">
           <SignedIn>
-            <ClerkUserButton />
+            <ClerkUserButtonWithName />
           </SignedIn>
           <SignedOut>
             <Button className="w-full">
