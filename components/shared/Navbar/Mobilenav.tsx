@@ -2,7 +2,6 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import ClerkUserButton from "../ClerkUserButton";
 import ClerkUserButtonWithName from "../ClerkUserButtonWithName";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,12 +15,13 @@ import { MobileNavLinks } from "./NavLinks";
 // MOBILE NAV
 export default function Mobilenav() {
   return (
-    <aside className="flex items-center gap-2 p-3 md:hidden">
+    <aside className=" flex gap-2 bg-background p-3 md:hidden">
       <div className="flex size-full min-h-12 items-center justify-between gap-8 text-right">
         {/* Logo */}
         <Link href="/">
           <Image
-            src="/assets/images/logo-text.svg"
+            // src="/assets/images/logo-text.svg"
+            src="/pickuro-logo.png"
             alt="logo"
             width={180}
             height={28}
@@ -29,13 +29,13 @@ export default function Mobilenav() {
         </Link>
 
         {/* User */}
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <SignedIn>
             <ClerkUserButtonWithName />
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in">
-              <Button>Login</Button>
+              <Button variant={"outline"}>Login</Button>
             </Link>
           </SignedOut>
 
@@ -50,30 +50,27 @@ export default function Mobilenav() {
 function MobileSidebar() {
   return (
     <Sheet>
-      <SheetTrigger className="flex items-center">
+      <SheetTrigger>
         <MenuIcon />
       </SheetTrigger>
 
       <SheetContent className="w-64">
-        <div className="size-full">
-          <div className="flex flex-col gap-8 divide-y">
-            {/* Logo */}
-            <SheetHeader>
-              <Link href="/">
-                <Image
-                  src="/assets/images/logo-text.svg"
-                  alt="logo"
-                  width={180}
-                  height={28}
-                />
-              </Link>
-            </SheetHeader>
+        <div className="flex flex-col gap-8 divide-y">
+          {/* Logo */}
+          <SheetHeader>
+            <Link href="/">
+              <Image
+                // src="/assets/images/logo-text.svg"
+                src="/pickuro-logo.png"
+                alt="logo"
+                width={180}
+                height={28}
+              />
+            </Link>
+          </SheetHeader>
 
-            {/* Nav links */}
-            <nav className="size-full pt-4">
-              <MobileNavLinks />
-            </nav>
-          </div>
+          {/* Nav links */}
+          <MobileNavLinks />
         </div>
       </SheetContent>
     </Sheet>

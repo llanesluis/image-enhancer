@@ -7,6 +7,9 @@
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
+    /* hsl(224,100%,67%) */
+    --accent-color: 224 100% 67%;
+
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
 
@@ -38,6 +41,9 @@
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
+
+    /* hsl(224,84%,50%) */
+    --accent-color: 224 84% 50%;
 
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;

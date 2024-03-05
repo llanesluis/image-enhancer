@@ -8,33 +8,34 @@ import { Button } from "@/components/ui/button";
 // DESKTOP NAV
 export default function Desktopnav() {
   return (
-    <aside className="hidden size-full p-3 md:flex lg:p-6">
-      <div className="flex size-full flex-col md:gap-2 lg:gap-8 lg:divide-y">
+    <aside className="sticky top-0 bg-background p-4 md:block lg:h-screen lg:w-64 lg:p-8">
+      <div className="flex flex-col md:gap-2 lg:gap-8 lg:divide-y">
         {/* Logo */}
         <div className="flex min-h-12 items-center ">
           <Link href="/">
             <Image
-              src="/assets/images/logo-text.svg"
+              //src="/assets/images/logo-text.svg"
+              src="/pickuro-logo.png"
               alt="logo"
-              width={180}
-              height={28}
+              width={198}
+              height={31}
             />
           </Link>
         </div>
 
         {/* Nav Links */}
-        <nav className="hidden md:flex md:flex-row md:gap-2 md:divide-x lg:flex-col lg:gap-4 lg:divide-x-0 lg:divide-y lg:pt-4">
-          <DesktopNavLinks />
-        </nav>
+        <DesktopNavLinks />
 
         {/* User Desktop */}
-        <div className="hidden min-h-12 justify-center pt-4 text-right md:absolute md:right-4 md:top-0 md:block lg:relative lg:right-0 lg:flex">
+        <div className="absolute right-4 top-0 min-h-12 pt-4 text-right lg:relative lg:right-0">
           <SignedIn>
             <ClerkUserButtonWithName />
           </SignedIn>
           <SignedOut>
-            <Link href="/sign-in" className="w-full">
-              <Button className="w-full">Login</Button>
+            <Link href="/sign-in">
+              <Button className="w-full" variant={"outline"}>
+                Login
+              </Button>
             </Link>
           </SignedOut>
         </div>

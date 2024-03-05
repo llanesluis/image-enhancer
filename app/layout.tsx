@@ -6,6 +6,7 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ClerkProvider } from "@clerk/nextjs";
 import ThemeProvider from "@/components/next-themes-provider";
 import { NextThemeIndicator } from "@/components/next-themes-indicator";
+import Container from "@/components/shared/Container";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider
       appearance={{
-        variables: { colorPrimary: "#0179FF" },
+        variables: { colorPrimary: "#144FEB" },
       }}
     >
       <html lang="es">

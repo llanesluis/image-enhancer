@@ -1,7 +1,7 @@
-import Navbar from "@/components/shared/Navbar/Navbar";
-import Desktopnav from "@/components/shared/Navbar/Desktopnav";
-import Mobilenav from "@/components/shared/Navbar/Mobilenav";
 import { ReactNode } from "react";
+import Header from "@/components/shared/Header";
+import Footer from "@/components/shared/Footer";
+import Container from "@/components/shared/Container";
 
 interface InnerRootLayoutProps {
   children: ReactNode;
@@ -9,13 +9,15 @@ interface InnerRootLayoutProps {
 
 export default function InnerRootLayout({ children }: InnerRootLayoutProps) {
   return (
-    <div className="flex h-screen flex-col lg:flex-row lg:overflow-hidden">
-      <aside className="w-full flex-none shadow shadow-foreground/20 lg:h-full lg:w-64">
-        <Navbar DesktopNavBar={<Desktopnav />} MobileNavBar={<Mobilenav />} />
-      </aside>
-      <main className="flex-grow p-4 md:p-8 lg:overflow-y-auto lg:p-12">
-        {children}
-      </main>
+    <div className="flex max-lg:flex-col">
+      <Header />
+      <div className="w-full">
+        {/* TODO: Agregar paddings para las paginas */}
+        <main className="px-6 py-4 md:px-8 md:py-6 lg:px-14 lg:py-10">
+          {children}
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
