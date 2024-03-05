@@ -13,6 +13,11 @@ export default function ClerkUserButton() {
       appearance={{
         baseTheme: resolvedTheme === "dark" ? dark : undefined,
       }}
+      userProfileProps={{
+        appearance: {
+          baseTheme: resolvedTheme === "dark" ? dark : undefined,
+        },
+      }}
     />
   );
 }
