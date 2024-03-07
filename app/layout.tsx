@@ -1,12 +1,11 @@
+import Providers from "@/components/providers";
+import { ThemeProvider } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { ClerkProvider } from "@clerk/nextjs";
-import ThemeProvider from "@/components/next-themes-provider";
-import { NextThemeIndicator } from "@/components/next-themes-indicator";
-import Container from "@/components/shared/Container";
+import "@fontsource-variable/comfortaa";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -16,6 +15,8 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Pickuro",
   description: "Mejora tus imágenes con el poder de la Inteligencia Artificial",
+  keywords:
+    "IA, Inteligencia Artificial, Imágenes, Edición de Imágenes, Fotografía, Remover Fondo, Enhancer, Photo Enhancer, Background Remover, Background Remover AI, Enhancer AI, Photo Enhancer AI",
 };
 
 export default function RootLayout({
@@ -29,16 +30,21 @@ export default function RootLayout({
         variables: { colorPrimary: "#144FEB" },
       }}
     >
-      <html lang="es">
+      <html
+        lang="es"
+        suppressHydrationWarning
+        className="motion-safe:scroll-smooth"
+      >
         <body
           className={cn("font-montserrat antialiased", montserrat.variable)}
         >
-          <ThemeProvider>
-            {children}
-
-            {/* Solo se muestran en dev mode */}
-            <TailwindIndicator />
-            <NextThemeIndicator />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Providers>{children}</Providers>
           </ThemeProvider>
         </body>
       </html>

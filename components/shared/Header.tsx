@@ -1,11 +1,43 @@
-import Desktopnav from "./Navbar/Desktopnav";
-import Mobilenav from "./Navbar/Mobilenav";
-import Navbar from "./Navbar/Navbar";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "../ui/button";
+import ClerkUserButton from "./ClerkUserButton";
+import { DesktopNavbar } from "./navbar/Desktopnav";
+import User from "./User";
+import { MobileSidebar } from "./navbar/MobileSidebar";
 
 export default function Header() {
   return (
-    <div className="sticky top-0 z-20 shadow shadow-foreground/20">
-      <Navbar DesktopNavBar={<Desktopnav />} MobileNavBar={<Mobilenav />} />
-    </div>
+    <header className="sticky -top-[1px] z-50 bg-background shadow shadow-foreground/10">
+      <div className="container flex h-20 items-center justify-between gap-4">
+        {/* logo */}
+        <Link href="/">
+          <Image src={"/pickuro-logo.png"} alt="Logo" width={180} height={28} />
+        </Link>
+
+        {/* user */}
+        <div className="order-2 ml-auto">
+          <SignedIn>
+            <User />
+          </SignedIn>
+          <SignedOut>
+            <Link href="/sign-in">
+              <Button variant={"outline"}>Login</Button>
+            </Link>
+          </SignedOut>
+        </div>
+
+        {/* desktop nav*/}
+        <div className="hidden md:block">
+          <DesktopNavbar />
+        </div>
+
+        {/* mobile sidebar */}
+        <div className="order-3 block md:hidden">
+          <MobileSidebar />
+        </div>
+      </div>
+    </header>
   );
 }

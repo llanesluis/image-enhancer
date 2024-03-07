@@ -18,8 +18,12 @@ const config = {
       },
     },
     extend: {
+      gridTemplateColumns: {
+        autofit: "repeat(auto-fit, minmax(250px, 1fr))",
+      },
       fontFamily: {
         montserrat: "var(--font-montserrat)",
+        confortaa: ["Comfortaa Variable", "system-ui"],
       },
       colors: {
         border: "hsl(var(--border))",

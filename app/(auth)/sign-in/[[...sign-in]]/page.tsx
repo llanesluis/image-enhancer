@@ -6,7 +6,6 @@ import { useTheme } from "next-themes";
 
 export default function SignInPage() {
   const { resolvedTheme } = useTheme();
-  console.log(resolvedTheme);
   return (
     <SignIn
       appearance={{ baseTheme: resolvedTheme === "dark" ? dark : undefined }}

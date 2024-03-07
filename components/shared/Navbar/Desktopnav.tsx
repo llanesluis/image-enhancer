@@ -1,45 +1,76 @@
-import Image from "next/image";
+"use client";
+
+import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
-import { DesktopNavLinks } from "./NavLinks";
-import ClerkUserButtonWithName from "../ClerkUserButtonWithName";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
 
-// DESKTOP NAV
-export default function Desktopnav() {
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { normalNavLinks, premiumNavLinks } from "@/constants";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+
+export function DesktopNavbar() {
   return (
-    <aside className="sticky top-0 bg-background p-4 md:block lg:h-screen lg:w-64 lg:p-8">
-      <div className="flex flex-col md:gap-2 lg:gap-8 lg:divide-y">
-        {/* Logo */}
-        <div className="flex min-h-12 items-center ">
-          <Link href="/">
-            <Image
-              //src="/assets/images/logo-text.svg"
-              src="/pickuro-logo.png"
-              alt="logo"
-              width={198}
-              height={31}
-            />
-          </Link>
-        </div>
+    <NavigationMenu orientation="vertical">
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Herramientas</NavigationMenuTrigger>
+          <NavigationMenuContent className="border-t-4 border-t-accentcolor">
+            <DesktopNavLinks />
+          </NavigationMenuContent>
+        </NavigationMenuItem>
 
-        {/* Nav Links */}
-        <DesktopNavLinks />
+        <SignedIn>
+          {premiumNavLinks.map((link) => {
+            return (
+              <NavigationMenuItem key={link.route}>
+                <Link href={link.route} passHref legacyBehavior>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    {link.label}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            );
+          })}
+        </SignedIn>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}
 
-        {/* User Desktop */}
-        <div className="absolute right-4 top-0 min-h-12 pt-4 text-right lg:relative lg:right-0">
-          <SignedIn>
-            <ClerkUserButtonWithName />
-          </SignedIn>
-          <SignedOut>
-            <Link href="/sign-in">
-              <Button className="w-full" variant={"outline"}>
-                Login
-              </Button>
-            </Link>
-          </SignedOut>
-        </div>
-      </div>
-    </aside>
+export function DesktopNavLinks() {
+  const pathname = usePathname();
+
+  return (
+    <nav>
+      <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[1fr_1fr]">
+        {normalNavLinks.map((link) => {
+          const isActive = pathname === link.route;
+          if (link.route === "/") return;
+          return (
+            <li key={link.route}>
+              <Link href={link.route} legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10",
+                    isActive &&
+                      " font-bold text-accentcolor outline-dashed outline-1 outline-accentcolor",
+                  )}
+                >
+                  <p className="text-sm">{link.label}</p>
+                </NavigationMenuLink>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }
