@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Container from "./Container";
+import { Separator } from "../ui/separator";
 
 export default function Footer() {
+  // from-transparent from-70% to-[#5784FF22] bg-gradient-to-b
   return (
-    <footer className="w-full border-t bg-gradient-to-b from-transparent from-70% to-[#5784FF22] py-8">
+    <footer className="relative w-full border-t py-8">
       <div className="container flex items-center justify-between gap-4 max-md:flex-col">
         <Image
           src={"/pickuro-logo.png"}
