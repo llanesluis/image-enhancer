@@ -12,12 +12,10 @@ export default async function HomePage() {
           <h1 className="flex-1 text-balance text-center  text-4xl font-bold drop-shadow-md sm:text-5xl md:text-6xl lg:text-start lg:text-7xl lg:leading-[80px]">
             Mejora tus imágenes con el poder de la
             <br />
-            <span className="font-confortaa inline-block bg-gradient-to-r from-accentcolor to-[#799cff] bg-clip-text text-transparent lg:-rotate-3">
+            <span className="inline-block bg-gradient-to-r from-accentcolor to-[#799cff] bg-clip-text font-confortaa text-transparent lg:-rotate-3">
               Inteligencia Artificial
             </span>
           </h1>
-          {/* mas oscuro #144FEB
-mas bajito #5784FF */}
 
           <div className="absolute -left-56 opacity-10 ">
             <Image
@@ -40,7 +38,7 @@ mas bajito #5784FF */}
           </div>
         </section>
 
-        {/* botones  */}
+        {/* herramientas  */}
         <section className="flex flex-col gap-6 md:items-center md:text-center">
           <h2 className="text-4xl font-bold md:text-5xl">
             ¡Explora las herramientas!
@@ -74,12 +72,18 @@ mas bajito #5784FF */}
         {/* features */}
         <section
           id="features"
-          className="grid-cols-autofit grid place-items-center gap-4"
+          className="grid grid-cols-autofit place-items-center gap-4"
         >
           {Array.from({ length: 4 }).map((_, i) => (
             <FeatureCard key={i} />
           ))}
         </section>
+
+        {/* todo: reviews */}
+        <section></section>
+
+        {/* todo: FAQ */}
+        <section></section>
       </div>
     </main>
   );
