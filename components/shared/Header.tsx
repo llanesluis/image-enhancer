@@ -23,7 +23,7 @@ export default function Header() {
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in">
-              <Button variant={"outline"}>Login</Button>
+              <Button variant={"link"}>Login</Button>
             </Link>
           </SignedOut>
         </div>
