@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       gridTemplateColumns: {
-        autofit: "repeat(auto-fit, minmax(250px, 1fr))",
+        autofit: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
       },
       fontFamily: {
         montserrat: "var(--font-montserrat)",

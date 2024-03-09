@@ -1,7 +1,47 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+
+const features = [
+  {
+    id: 1,
+    title: "Remueve el fondo",
+    description: "Remueve el fondo de tus imágenes con un solo click",
+    imgUrl: "/assets/images/remover-fondo.png",
+    route: "/transformations/add/removeBackground",
+  },
+  {
+    id: 2,
+    title: "Mejora la calidad",
+    description:
+      "Mejora la calidad de tus fotos con la inteligencia artificial",
+    imgUrl: "/assets/images/restaurar-imagen.webp",
+    route: "/transformations/add/restore",
+  },
+  {
+    id: 3,
+    title: "Desaparece objetos",
+    description: "Haz desaparecer objetos no deseados de tus imágenes",
+    imgUrl: "/assets/images/remover-objeto.png",
+    route: "/transformations/add/remove",
+  },
+  {
+    id: 4,
+    title: "Rellena espacios",
+    description: "Rellena espacios vacíos en tus imágenes con IA",
+    imgUrl: "/assets/images/relleno-generativo.jpg",
+    route: "/transformations/add/fill",
+  },
+  {
+    id: 5,
+    title: "Cambia el color",
+    description: "Cambia el color de alguna parte de tus imágenes con IA",
+    imgUrl: "/assets/images/cambiar-color.jpg",
+    route: "/transformations/add/recolor",
+  },
+];
 
 export default async function HomePage() {
   return (
@@ -29,7 +69,7 @@ export default async function HomePage() {
 
           <div className="w-full flex-1">
             <Image
-              src={"/hero-image.jpg"}
+              src={"/assets/images/hero-image.jpg"}
               height={323}
               width={574}
               alt="Hero image"
@@ -72,10 +112,16 @@ export default async function HomePage() {
         {/* features */}
         <section
           id="features"
-          className="grid grid-cols-autofit place-items-center gap-4"
+          className="grid auto-rows-[300px_auto_auto] grid-cols-autofit place-items-center gap-4 border-y-4 border-dashed py-16"
         >
-          {Array.from({ length: 4 }).map((_, i) => (
-            <FeatureCard key={i} />
+          {features.map(({ id, imgUrl, title, description, route }) => (
+            <FeatureCard
+              key={id}
+              title={title}
+              description={description}
+              imgUrl={imgUrl}
+              route={route}
+            />
           ))}
         </section>
 
@@ -89,18 +135,30 @@ export default async function HomePage() {
   );
 }
 
-function FeatureCard() {
+function FeatureCard({
+  title,
+  description,
+  imgUrl,
+  route,
+}: {
+  title: string;
+  description: string;
+  imgUrl: string;
+  route: string;
+}) {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <Image
-        src={"/hero-image.jpg"}
-        height={161}
-        width={323}
-        alt="Hero image"
-        className="rounded-lg shadow-lg outline-dashed outline-4 outline-accentcolor"
-      />
-      <h3 className="text-2xl font-bold">herramienta xd</h3>
-      <p>kaskasjsa sdi sdksdh sadds</p>
-    </div>
+    <Link href={route}>
+      <div className="row-span-3 mx-auto grid w-fit grid-rows-subgrid place-items-center gap-2 p-4 text-center">
+        <Image
+          src={imgUrl}
+          height={161}
+          width={323}
+          alt={title}
+          className="aspect-video rounded-lg object-cover object-center shadow-lg outline-dashed outline-4 outline-accentcolor"
+        />
+        <h3 className="pt-2 font-confortaa text-xl font-bold">{title}</h3>
+        <p className="max-w-[250px]">{description}</p>
+      </div>
+    </Link>
   );
 }
