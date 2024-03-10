@@ -15,7 +15,7 @@ import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import User from "../User";
+import User from "./User";
 import { NavLink } from "./NavLink";
 
 export default function MobileSidebar() {
