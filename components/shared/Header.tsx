@@ -2,9 +2,8 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import ClerkUserButton from "./ClerkUserButton";
-import { DesktopNavbar } from "./navbar/Desktopnav";
 import User from "./User";
+import { DesktopNavbar } from "./navbar/Desktopnav";
 import { MobileSidebar } from "./navbar/MobileSidebar";
 
 export default function Header() {
