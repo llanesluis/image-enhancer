@@ -9,7 +9,6 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { normalNavLinks, premiumNavLinks } from "@/constants";
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
@@ -17,6 +16,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import User from "./User";
 import { NavLink } from "./NavLink";
+import { normalNavLinks, premiumNavLinks } from "@/constants/navlinks";
 
 export default function MobileSidebar() {
   const { user } = useUser();

@@ -11,9 +11,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { normalNavLinks, premiumNavLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { normalNavLinks, premiumNavLinks } from "@/constants/navlinks";
 
 export default function DesktopNavbar() {
   return (
