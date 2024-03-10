@@ -18,7 +18,7 @@ import { usePathname } from "next/navigation";
 import User from "../User";
 import { NavLink } from "./NavLink";
 
-export function MobileSidebar() {
+export default function MobileSidebar() {
   const { user } = useUser();
 
   return (

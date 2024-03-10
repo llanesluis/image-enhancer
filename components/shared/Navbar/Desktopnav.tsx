@@ -2,7 +2,6 @@
 
 import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,7 +15,7 @@ import { normalNavLinks, premiumNavLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
-export function DesktopNavbar() {
+export default function DesktopNavbar() {
   return (
     <NavigationMenu orientation="vertical">
       <NavigationMenuList>
