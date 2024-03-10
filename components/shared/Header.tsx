@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import User from "./User";
-import DesktopNavbar from "./navbar/Desktopnav";
-import MobileSidebar from "./navbar/MobileSidebar";
+import DesktopNavbar from "./navbar/DesktoNavbar";
+import MobileSidebar from "./navbar/MobileNavbar";
 
 export default function Header() {
   return (

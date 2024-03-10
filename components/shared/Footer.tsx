@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Container from "./Container";
-import { Separator } from "../ui/separator";
 
 export default function Footer() {
   // from-transparent from-70% to-[#5784FF22] bg-gradient-to-b
