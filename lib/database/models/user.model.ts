@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const UserSchema = new Schema({
   clerkId: { type: String, required: true, unique: true },
@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   firstName: { type: String, required: true, unique: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
-  photo: { type: URL, required: true },
+  photo: { type: String, required: true },
   planId: { type: Number, default: 1 },
   creditBalance: { type: Number, default: 10 },
   createdAt: { type: Date, default: Date.now },
