@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema({
   clerkId: { type: String, required: true, unique: true },
@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   firstName: { type: String, required: true, unique: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
-  photo: { type: URL, required: false },
+  photo: { type: URL, required: true },
   planId: { type: Number, default: 1 },
   creditBalance: { type: Number, default: 10 },
   createdAt: { type: Date, default: Date.now },
@@ -19,13 +19,13 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
-  photo?: string;
-  planId: number;
-  creditBalance: number;
-  createdAt: Date;
-  updatedAt: Date;
+  photo: string;
+  planId?: number;
+  creditBalance?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-const User = models?.User || model("User", UserSchema);
+const User = model("User", UserSchema);
 
 export default User;

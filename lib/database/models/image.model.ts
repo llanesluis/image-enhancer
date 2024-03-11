@@ -38,6 +38,6 @@ export interface IImage extends Document {
   updatedAt: Date;
 }
 
-const Image = models?.Image || model("Image", ImageSchema);
+const Image = model("Image", ImageSchema);
 
 export default Image;
