@@ -28,7 +28,7 @@ export const connectToDatabase = async () => {
   cached.promise =
     cached.promise ||
     mogoose.connect(MONGODB_URL, {
-      dbName: "Cluster0",
+      dbName: "pickuro",
       bufferCommands: false,
     });
 
