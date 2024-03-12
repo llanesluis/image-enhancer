@@ -1,9 +1,22 @@
+import Header from "@/components/shared/Header";
+import {
+  TransformationType,
+  transformationsTypes,
+} from "@/constants/transformations";
+
 interface AddTransformationTypeProps {
-  params: { type: string };
+  params: {
+    type: TransformationType;
+  };
 }
 
 export default function AddTransformationType({
   params: { type },
 }: AddTransformationTypeProps) {
-  return <div>{type}</div>;
+  const { title, subtitle, icon } = transformationsTypes[type];
+  return (
+    <main className="container py-16">
+      <Header title={title} subtitle={subtitle} />
+    </main>
+  );
 }
