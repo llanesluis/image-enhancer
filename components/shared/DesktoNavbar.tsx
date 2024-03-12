@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { normalNavLinks, premiumNavLinks } from "@/constants/navlinks";
+import Image from "next/image";
 
 export default function DesktopNavbar() {
   return (
@@ -63,6 +64,12 @@ export function DesktopNavLinks() {
                       " font-bold text-accentcolor outline-dashed outline-1 outline-accentcolor",
                   )}
                 >
+                  <Image
+                    height={24}
+                    width={24}
+                    src={link.icon}
+                    alt={`${link.label} icon`}
+                  />
                   <p className="text-sm">{link.label}</p>
                 </NavigationMenuLink>
               </Link>
