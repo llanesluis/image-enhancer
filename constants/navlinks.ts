@@ -10,7 +10,7 @@ export const navLinks = [
     icon: "/assets/icons/image.svg",
   },
   {
-    label: "Rellenado Generativo",
+    label: "Relleno Generativo",
     route: "/transformations/add/fill",
     icon: "/assets/icons/stars.svg",
   },
