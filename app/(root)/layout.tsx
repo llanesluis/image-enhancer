@@ -1,5 +1,5 @@
 import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
+import Navbar from "@/components/shared/Navbar";
 import { ReactNode } from "react";
 interface InnerRootLayoutProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface InnerRootLayoutProps {
 export default function InnerRootLayout({ children }: InnerRootLayoutProps) {
   return (
     <>
-      <Header />
+      <Navbar />
       {children}
       <Footer />
     </>
