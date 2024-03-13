@@ -1,6 +1,6 @@
 "use server";
 
-import User from "../database/models/user.model";
+import User, { IUser } from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { revalidatePath } from "next/cache";
 import { handleError } from "../utils";
@@ -17,14 +17,14 @@ export async function createUser(user: CreateUserParams) {
   }
 }
 
-export async function getUserById(userId: string) {
+export async function getUserById(clerkId: string) {
   try {
     await connectToDatabase();
 
-    const user = await User.findOne({ clerkId: userId });
+    const user = await User.findOne({ clerkId });
     if (!user) throw new Error("User not found");
 
-    return JSON.parse(JSON.stringify(user));
+    return JSON.parse(JSON.stringify(user)) as IUser;
   } catch (e) {
     handleError(e);
   }
