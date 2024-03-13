@@ -41,8 +41,6 @@ export default function MobileSidebar() {
             </Link>
           </SheetHeader>
 
-          <Separator orientation="horizontal" />
-
           {/* Nav links */}
           <MobileNavLinks />
 
@@ -71,7 +69,7 @@ export default function MobileSidebar() {
 export function MobileNavLinks() {
   const pathname = usePathname();
   return (
-    <nav className="flex size-full flex-col gap-4 divide-y">
+    <nav className="flex size-full flex-col gap-4 divide-y pt-4">
       {/* NORMAL NAV LINKS */}
       <ul className="space-y-2">
         {normalNavLinks.map((navLink) => {
