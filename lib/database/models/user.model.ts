@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Document } from "mongoose";
 
 const UserSchema = new Schema({
   clerkId: { type: String, required: true, unique: true },
@@ -14,6 +14,7 @@ const UserSchema = new Schema({
 });
 
 export interface IUser {
+  _id: string;
   clerkId: string;
   username: string;
   firstName: string;

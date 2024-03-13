@@ -9,7 +9,8 @@ const TransactionSchema = new Schema({
   buyer: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-export interface ITransaction extends Document {
+export interface ITransaction {
+  _id: string;
   amount: number;
   stripeId: string;
   plan?: string;
@@ -22,6 +23,7 @@ export interface ITransaction extends Document {
   };
 }
 
-const Transaction = model("Transaction", TransactionSchema);
+const Transaction =
+  models.Transaction || model("Transaction", TransactionSchema);
 
 export default Transaction;
