@@ -13,10 +13,3 @@ export type CreateTransactionParams = {
   buyerId: string;
   createdAt: Date;
 };
-
-export type TransformationTypeKey =
-  | "restore"
-  | "fill"
-  | "remove"
-  | "recolor"
-  | "removeBackground";
