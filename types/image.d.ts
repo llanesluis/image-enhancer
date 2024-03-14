@@ -34,19 +34,3 @@ export type UpdateImageParams = {
   userId: string;
   path: string;
 };
-
-export type Transformations = {
-  restore?: boolean;
-  fillBackground?: boolean;
-  remove?: {
-    prompt: string;
-    removeShadow?: boolean;
-    multiple?: boolean;
-  };
-  recolor?: {
-    prompt?: string;
-    to: string;
-    multiple?: boolean;
-  };
-  removeBackground?: boolean;
-};

@@ -1,4 +1,19 @@
-import { TransformationType } from "@/constants/transformations";
+export type Transformations = {
+  restore?: boolean;
+  fillBackground?: boolean;
+  remove?: {
+    prompt: string;
+    removeShadow?: boolean;
+    multiple?: boolean;
+  };
+  recolor?: {
+    prompt?: string;
+    to: string;
+    multiple?: boolean;
+  };
+  removeBackground?: boolean;
+};
+
 export type TransformationTypeKey =
   | "restore"
   | "fill"
