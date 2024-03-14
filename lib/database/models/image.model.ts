@@ -35,8 +35,8 @@ export interface IImage {
     firstName: string;
     lastName: string;
   };
-  createAt: Date;
-  updatedAt: Date;
+  createAt?: Date;
+  updatedAt?: Date;
 }
 
 const Image = models.Image || model("Image", ImageSchema);
