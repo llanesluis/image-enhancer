@@ -29,8 +29,6 @@ export default function MediaUploader({
   type,
 }: MediaUploaderProps) {
   const { toast } = useToast();
-  const imageWidth = getImageSize(type, imageData, "width");
-  const imageHeight = getImageSize(type, imageData, "height");
 
   const handleUploadSuccess = (result: any) => {
     setImage((prevState: any) => ({
@@ -76,8 +74,8 @@ export default function MediaUploader({
             <>
               <div className="size-fit cursor-pointer overflow-hidden rounded-[10px] border">
                 <CldImage
-                  width={imageWidth}
-                  height={imageHeight}
+                  width={getImageSize(type, imageData, "width")}
+                  height={getImageSize(type, imageData, "height")}
                   src={publicId}
                   alt="image"
                   sizes={"(max-width: 767px) 100vw, 50vw"}
@@ -91,7 +89,7 @@ export default function MediaUploader({
           {/* Si la imagen no existe, widget para subirla */}
           {!publicId && (
             <div
-              className="flex-center group flex h-72 cursor-pointer flex-col items-center gap-4 rounded-[16px]  border-2 border-dashed border-accentcolor bg-purple-100/20 p-12 shadow-inner hover:bg-accentcolor/10"
+              className="flex-center group flex h-72 cursor-pointer flex-col items-center gap-4 rounded-[16px]  border-2 border-dashed border-accentcolor bg-slate-200/20 p-12 shadow-inner hover:bg-accentcolor/10"
               onClick={() => open()}
             >
               <div className=" rounded-[16px] bg-accentcolor bg-white p-4  shadow-sm shadow-accentcolor/50  transition-all ease-linear group-hover:opacity-70">
