@@ -12,7 +12,13 @@ export default function Navbar() {
       <div className="container flex h-20 items-center justify-between gap-4">
         {/* logo */}
         <Link href="/">
-          <Image src={"/pickuro-logo.png"} alt="Logo" width={180} height={28} />
+          <Image
+            src={"/pickuro-logo.png"}
+            alt="Logo"
+            width={180}
+            height={28}
+            className="h-auto"
+          />
         </Link>
 
         {/* user */}

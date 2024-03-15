@@ -8,8 +8,9 @@ export default function Footer() {
         <Image
           src={"/pickuro-logo.png"}
           alt="Pickuro Logo"
-          width={190}
-          height={31}
+          width={180}
+          height={28}
+          className="h-auto"
         />
         <section className="flex justify-between *:flex-1">Info aquí</section>
       </div>
