@@ -1,5 +1,6 @@
 import Header from "@/components/shared/Header";
 import TransformationForm from "@/components/shared/TransformationForm";
+import TransformationFormRefs from "@/components/shared/TransformationFormRefs";
 import { transformationsTypes } from "@/constants/transformations";
 import { getUserById } from "@/lib/actions/user.actions";
 import { TransformationTypeKey } from "@/types/transformation";
@@ -26,7 +27,7 @@ export default async function AddTransformationType({
   return (
     <main className="container py-16">
       <Header title={title} subtitle={subtitle} />
-      <TransformationForm
+      <TransformationFormRefs
         action="Create"
         userId={user._id}
         type={type}
