@@ -20,7 +20,7 @@ export default async function AddTransformationType({
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
-  if (!user) throw new Error("User not found");
+  if (!user?._id) throw new Error("User not found");
 
   const { title, subtitle } = transformationsTypes[type];
 
