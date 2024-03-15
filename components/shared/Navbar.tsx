@@ -17,7 +17,7 @@ export default function Navbar() {
             alt="Logo"
             width={180}
             height={28}
-            className="h-auto"
+            className="h-auto object-contain"
           />
         </Link>
 
