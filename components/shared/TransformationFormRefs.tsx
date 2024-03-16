@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -13,23 +12,30 @@ import {
 import {
   AspectRatioOptionKey,
   aspectRatioOptions,
+  creditFee,
   defaultValues,
   transformationsTypes,
 } from "@/constants/transformations";
+import { addImage, updateImage } from "@/lib/actions/image.actions";
+import { updateCreditBalance } from "@/lib/actions/user.actions";
 import { IImage } from "@/lib/database/models/image.model";
-import { deepMergeObjects } from "@/lib/utils";
+import { debounce, deepMergeObjects } from "@/lib/utils";
 import {
   TransformationFormActionType,
   TransformationTypeKey,
   Transformations,
 } from "@/types/transformation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef, useState, useTransition } from "react";
+import Color from "color";
+import { getCldImageUrl } from "next-cloudinary";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
 import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "../ui/use-toast";
 import { CustomFormField } from "./CustomFormField";
 import MediaUploader from "./MediaUploader";
+import TransformedImage from "./TransformedImage";
 
 interface TransformationFormProps {
   type: TransformationTypeKey;
@@ -69,14 +75,17 @@ export default function TransformationForm({
         }
       : defaultValues;
 
-  // TODO: ESTO ES UN COCHINERO, VER COMO REFACTORIZAR PARA EVITAR TODO ESTO
   const [imageData, setImageData] = useState<IImage | null>(data);
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
-  const newTransformation = useRef<Transformations | null>(null);
-  const transformationConfig = useRef(transformation.configuration);
+  const [newTransformation, setNewTransformation] =
+    useState<Transformations | null>(null);
+  const [transformationConfig, setTransformationConfig] =
+    useState<Transformations | null>(null);
+  null;
   const [isTransforming, setIsTransforming] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   //Inicializa el form
   const form = useForm({
@@ -86,32 +95,83 @@ export default function TransformationForm({
 
   //Callback que ejecuta el form
   const onSubmit = async (formValues: TransformationFormData) => {
-    //TODO: Hacer que el boton no haga submit si no hay transformación ??
-    if (newTransformation.current === null)
-      return toast({
-        title: `Error al ${action === "Create" ? "Crear" : "Actualizar"}`,
-        description: `Debes aplicar una transformación antes.`,
-      });
-
+    console.log("formValues: ", formValues);
     setIsFormSubmitting(true);
 
-    const imageInfo = {
-      title: formValues.title,
-      //publicId: imageData?.publicId,
-      transformationType: type,
-      width: imageData?.width,
-      height: imageData?.height,
-      config: transformationConfig.current,
-      //secureURL: imageData?.secureURL,
-      //transformationURL: transformationUrl,
-      aspectRatio: formValues.aspectRatio,
-      prompt: formValues.prompt,
-      color: formValues.color,
-    };
+    if (data || imageData) {
+      const transformationUrl = getCldImageUrl({
+        width: imageData?.width,
+        height: imageData?.height,
+        src: imageData?.publicId!,
+        ...transformationConfig,
+      });
 
-    console.log("imageData: ", imageInfo);
+      //Si no se tiene la información de la imagen, no se puede continuar
+      if (
+        imageData?.publicId === undefined ||
+        imageData?.width === undefined ||
+        imageData?.height === undefined ||
+        imageData?.secureURL === undefined
+      )
+        return toast({
+          title: "Parámetros insuficientes",
+          description: "No se pudo obtener la información de la imagen",
+          variant: "destructive",
+          duration: 3000,
+        });
 
-    form.reset();
+      const imageInfo = {
+        title: formValues.title,
+        publicId: imageData.publicId,
+        transformationType: type,
+        width: imageData.width,
+        height: imageData.height,
+        config: transformationConfig,
+        secureURL: imageData.secureURL,
+        transformationURL: transformationUrl,
+        aspectRatio: formValues.aspectRatio,
+        prompt: formValues.prompt,
+        color: formValues.color,
+      };
+
+      if (action === "Create") {
+        try {
+          const newImage = await addImage({
+            image: imageInfo,
+            userId,
+            path: "/",
+          });
+
+          if (newImage) {
+            form.reset();
+            setImageData(data);
+            router.push(`/transformations/${newImage._id}`);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      if (action === "Update") {
+        try {
+          const updatedImage = await updateImage({
+            userId,
+            image: {
+              ...imageInfo,
+              _id: data!._id,
+            },
+            path: `/transformations/${data!._id}`,
+          });
+
+          if (updatedImage) {
+            router.push(`/transformations/${updatedImage._id}`);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
     setIsFormSubmitting(false);
   };
 
@@ -133,27 +193,30 @@ export default function TransformationForm({
     });
 
     //Guardar la configuración de la transformación
-    newTransformation.current = {
+    setNewTransformation((prev) => ({
+      ...prev,
       fillBackground: true,
-    };
+    }));
 
     return onFieldChange(value);
   };
 
   //Se ejecuta cuando un input cambia, recibe el nombre para saber que campo cambia
   const handleInputChange = (
-    fieldName: "title" | "prompt",
+    fieldName: "prompt",
     value: string,
     type: string,
     onFieldChange: (value: string) => void,
   ) => {
-    if (fieldName === "prompt") {
-      newTransformation.current = {
+    debounce(() => {
+      setNewTransformation((prevState: any) => ({
+        ...prevState,
         [type]: {
-          [fieldName]: value,
+          ...prevState?.[type],
+          [fieldName === "prompt" ? "prompt" : "to"]: value,
         },
-      };
-    }
+      }));
+    }, 1000)();
 
     return onFieldChange(value);
   };
@@ -163,12 +226,18 @@ export default function TransformationForm({
     value: string,
     onFieldChange: (value: string) => void,
   ) => {
-    newTransformation.current = {
-      recolor: {
-        prompt: newTransformation.current?.recolor?.prompt,
-        to: value,
-      },
-    };
+    const colorName = Color(value).keyword();
+    //console.log("colorName: ", colorName);
+
+    debounce(() => {
+      setNewTransformation((prev) => ({
+        ...prev,
+        recolor: {
+          ...prev?.recolor,
+          to: colorName,
+        },
+      }));
+    }, 500)();
 
     return onFieldChange(value);
   };
@@ -179,22 +248,30 @@ export default function TransformationForm({
 
     //Se combinan las configuraciones default y la nueva.
     const mergedTransformationConfig = deepMergeObjects(
-      newTransformation.current,
-      transformationConfig.current,
+      newTransformation,
+      transformationConfig,
     );
 
-    transformationConfig.current = mergedTransformationConfig;
-    console.log("transformationConfig: ", transformationConfig.current);
+    //transformationConfig.current = mergedTransformationConfig;
+    setTransformationConfig(mergedTransformationConfig);
+    console.log("transformationConfig: ", transformationConfig);
+    console.log("mergedTransformationConfig: ", mergedTransformationConfig);
 
-    newTransformation.current = null;
+    setNewTransformation(null);
 
     startTransition(async () => {
-      // TODO: updateCreditBalance(userId, creditFee); Aquí se debe hacer la llamada a la API para aplicar la transformación
-      //await updateCreditBalance(userId, creditFee);
+      await updateCreditBalance(userId, creditFee);
     });
 
     setIsTransforming(false);
   };
+
+  useEffect(() => {
+    if (imageData && (type === "restore" || type === "removeBackground")) {
+      setNewTransformation(transformation.configuration as Transformations);
+    }
+  }, [imageData, transformation.configuration, type]);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-8">
@@ -205,14 +282,7 @@ export default function TransformationForm({
           formLabel="Título"
           formDescription="¿Cómo quieres llamar a esta transformación?"
           render={({ field }) => (
-            <Input
-              {...field}
-              value={field.value}
-              placeholder="Mi mejor fotografía.."
-              onChange={(e) =>
-                handleInputChange("title", e.target.value, type, field.onChange)
-              }
-            />
+            <Input {...field} placeholder="Mi mejor fotografía.." />
           )}
         />
 
@@ -304,12 +374,11 @@ export default function TransformationForm({
           <CustomFormField
             control={form.control as Control<TransformationFormData>}
             name="publicId"
-            formLabel="Imagen"
             className="size-full"
             render={({ field }) => (
               <MediaUploader
                 onChange={field.onChange}
-                setImage={setImageData}
+                setImageData={setImageData}
                 publicId={field.value}
                 imageData={imageData}
                 type={type}
@@ -318,9 +387,13 @@ export default function TransformationForm({
           />
 
           {/* Transformed pic */}
-          <div className="size-full rounded-lg bg-blue-100 p-8">
-            Pendiente el componente de la imagen transformada
-          </div>
+          <TransformedImage
+            image={imageData}
+            isTransforming={isTransforming}
+            setIsTransforming={setIsTransforming}
+            transformationConfig={transformationConfig}
+            type={type}
+          />
         </div>
 
         {/* botones */}
@@ -328,7 +401,7 @@ export default function TransformationForm({
           <Button
             type="button"
             variant={"secondary"}
-            disabled={isTransforming || newTransformation.current === null}
+            disabled={isTransforming || newTransformation === null}
             onClick={handleTransformation}
           >
             Aplicar transformación
