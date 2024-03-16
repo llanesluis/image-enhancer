@@ -15,7 +15,7 @@ import { useToast } from "../ui/use-toast";
 
 interface MediaUploaderProps {
   onChange: (value: string) => void;
-  setImage: Dispatch<SetStateAction<IImage | null>>;
+  setImageData: Dispatch<SetStateAction<IImage | null>>;
   publicId: string;
   imageData: IImage | null;
   type: TransformationTypeKey;
@@ -24,14 +24,14 @@ interface MediaUploaderProps {
 export default function MediaUploader({
   imageData,
   onChange,
-  setImage,
+  setImageData,
   publicId,
   type,
 }: MediaUploaderProps) {
   const { toast } = useToast();
 
   const handleUploadSuccess = (result: any) => {
-    setImage((prevState: any) => ({
+    setImageData((prevState: any) => ({
       ...prevState,
       publicId: result?.info?.public_id,
       width: result?.info?.width,
@@ -45,7 +45,7 @@ export default function MediaUploader({
       title: "La imagen se subió correctamente",
       description: "Se ha utilizado 1 crédito",
       variant: "default",
-      duration: 5000,
+      duration: 3000,
     });
   };
 
@@ -54,7 +54,7 @@ export default function MediaUploader({
       title: "Ocurrió un error al subir la imagen",
       description: "Intenta de nuevo",
       variant: "destructive",
-      duration: 5000,
+      duration: 3000,
     });
   };
 
@@ -67,29 +67,28 @@ export default function MediaUploader({
     >
       {({ open }) => (
         <div className="flex flex-col gap-4">
-          <h3 className="font-confortaa text-4xl font-bold">Original</h3>
+          <h3 className="font-confortaa text-4xl font-bold max-md:text-3xl">
+            Original
+          </h3>
 
           {/* Si la imagen ya existe */}
-          {publicId && (
+          {publicId ? (
             <>
               <div className="size-fit cursor-pointer overflow-hidden rounded-[10px] border">
                 <CldImage
                   width={getImageSize(type, imageData, "width")}
                   height={getImageSize(type, imageData, "height")}
                   src={publicId}
-                  alt="image"
+                  alt="Imagen original"
                   sizes={"(max-width: 767px) 100vw, 50vw"}
                   placeholder={dataUrl as PlaceholderValue}
-                  className="media-uploader_cldImage"
+                  className="h-fit min-h-72 w-full rounded-[10px] border border-dashed object-cover"
                 />
               </div>
             </>
-          )}
-
-          {/* Si la imagen no existe, widget para subirla */}
-          {!publicId && (
+          ) : (
             <div
-              className="flex-center group flex h-72 cursor-pointer flex-col items-center gap-4 rounded-[16px]  border-2 border-dashed border-accentcolor bg-slate-200/20 p-12 shadow-inner hover:bg-accentcolor/10"
+              className="group flex h-72 cursor-pointer flex-col items-center justify-center  gap-4 rounded-[16px]  border-2 border-dashed border-accentcolor bg-slate-200/20 p-12 shadow-inner hover:bg-accentcolor/10"
               onClick={() => open()}
             >
               <div className=" rounded-[16px] bg-accentcolor bg-white p-4  shadow-sm shadow-accentcolor/50  transition-all ease-linear group-hover:opacity-70">
