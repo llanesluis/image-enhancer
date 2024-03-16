@@ -16,9 +16,9 @@ export function NavLink({ navLink, isActive, ...props }: NavLinkProps) {
       {...props}
       href={navLink.route}
       className={cn(
-        "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10",
+        "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-secondary",
         isActive &&
-          " font-bold text-accentcolor outline-dashed outline-1 outline-accentcolor",
+          "bg-accentcolor/10 font-bold text-accentcolor hover:bg-accentcolor/10",
       )}
     >
       <Image

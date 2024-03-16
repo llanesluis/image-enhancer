@@ -17,6 +17,8 @@ import { normalNavLinks, premiumNavLinks } from "@/constants/navlinks";
 import Image from "next/image";
 
 export default function DesktopNavbar() {
+  const pathname = usePathname();
+
   return (
     <NavigationMenu orientation="vertical">
       <NavigationMenuList>
@@ -29,10 +31,17 @@ export default function DesktopNavbar() {
 
         <SignedIn>
           {premiumNavLinks.map((link) => {
+            const isActive = pathname === link.route;
             return (
               <NavigationMenuItem key={link.route}>
                 <Link href={link.route} passHref legacyBehavior>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      isActive &&
+                        "bg-accentcolor/10 font-bold text-accentcolor hover:bg-accentcolor/10",
+                    )}
+                  >
                     {link.label}
                   </NavigationMenuLink>
                 </Link>
@@ -59,9 +68,9 @@ export function DesktopNavLinks() {
               <Link href={link.route} legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
-                    "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-primary/10",
+                    "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-secondary",
                     isActive &&
-                      " font-bold text-accentcolor outline-dashed outline-1 outline-accentcolor",
+                      "bg-accentcolor/10 font-bold text-accentcolor hover:bg-accentcolor/10",
                   )}
                 >
                   <Image
