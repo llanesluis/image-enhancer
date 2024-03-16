@@ -100,3 +100,45 @@ const toBase64 = (str: string) =>
 export const dataUrl = `data:image/svg+xml;base64,${toBase64(
   shimmer(1000, 1000),
 )}`;
+
+// DOWNLOAD IMAGE
+export const download = (url: string, filename: string) => {
+  try {
+    if (!url) {
+      throw new Error(
+        "¡No se proporcionó la URL del recurso! Debes proporcionar una",
+      );
+    }
+
+    const a = document.createElement("a");
+    a.target = "_blank";
+    a.href = url;
+    a.download = `${filename.replace(" ", "_")}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  } catch (error) {
+    console.error(error);
+  }
+
+  // if (!url) {
+  //   throw new Error("¡No se proporcionó la URL del recurso! Debes proporcionar una");
+  // }
+  // fetch(url)
+  //   .then((response) => response.blob())
+  //   .then((blob) => {
+  //     const blobURL = URL.createObjectURL(blob);
+  //     const a = document.createElement("a");
+
+  //     a.href = blobURL;
+
+  //     if (filename && filename.length) {
+  //       a.download = `${filename.replace(" ", "_")}.png`;
+  //       a.target = "_blank";
+  //     }
+
+  //     document.body.appendChild(a);
+  //     a.click();
+  //   })
+  //   .catch((error) => console.log({ error }));
+};
