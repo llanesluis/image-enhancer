@@ -46,9 +46,7 @@ export default function TransformedImage({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
-        <h3 className="font-confortaa text-4xl font-bold max-md:text-3xl">
-          Modificada
-        </h3>
+        <h3 className="text-4xl font-bold max-md:text-3xl">Modificada</h3>
 
         {isReadyToDownload && (
           <Button
@@ -74,7 +72,7 @@ export default function TransformedImage({
           <CldImage
             width={getImageSize(type, image, "width")}
             height={getImageSize(type, image, "height")}
-            src={image?.publicId}
+            src={image?.publicId || "/public/pickuro-icon.png"}
             alt={image?.title || "Imagen modificada"}
             sizes={"(max-width: 767px) 100vw, 50vw"}
             placeholder={dataUrl as PlaceholderValue}

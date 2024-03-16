@@ -67,9 +67,7 @@ export default function MediaUploader({
     >
       {({ open }) => (
         <div className="flex flex-col gap-4">
-          <h3 className="font-confortaa text-4xl font-bold max-md:text-3xl">
-            Original
-          </h3>
+          <h3 className="text-4xl font-bold max-md:text-3xl">Original</h3>
 
           {/* Si la imagen ya existe */}
           {publicId ? (
