@@ -34,7 +34,7 @@ export default async function HomePage() {
               height={323}
               width={574}
               alt="Hero image"
-              className="w-full max-w-[700px] rotate-3 rounded-lg shadow-lg outline-dashed outline-4 outline-accentcolor drop-shadow-md max-lg:m-auto max-lg:mt-8"
+              className="w-full max-w-[700px] rotate-3 rounded-lg shadow shadow-accentcolor  drop-shadow-md max-lg:m-auto max-lg:mt-8"
             />
           </div>
         </section>
@@ -73,7 +73,7 @@ export default async function HomePage() {
         {/* features */}
         <section
           id="features"
-          className="grid auto-rows-[300px_auto_auto] grid-cols-autofit place-items-center gap-4 border-y-4 border-dashed py-16"
+          className="bg grid auto-rows-[300px_auto_auto] grid-cols-autofit place-items-center gap-4 border-y-4 border-dashed py-16"
         >
           {features.map(({ id, imgUrl, title, description, route }) => (
             <FeatureCard
@@ -115,9 +115,9 @@ function FeatureCard({
           height={161}
           width={323}
           alt={title}
-          className="aspect-video rounded-lg object-cover object-center shadow-lg outline-dashed outline-4 outline-accentcolor"
+          className="aspect-video rounded-lg object-cover object-center shadow-lg"
         />
-        <h3 className="pt-2 font-confortaa text-xl font-bold">{title}</h3>
+        <h3 className="pt-2 text-xl font-bold">{title}</h3>
         <p className="max-w-[250px]">{description}</p>
       </div>
     </Link>
