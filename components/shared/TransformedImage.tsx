@@ -72,7 +72,7 @@ export default function TransformedImage({
           <CldImage
             width={getImageSize(type, image, "width")}
             height={getImageSize(type, image, "height")}
-            src={image?.publicId || "/public/pickuro-icon.png"}
+            src={image?.publicId}
             alt={image?.title || "Imagen modificada"}
             sizes={"(max-width: 767px) 100vw, 50vw"}
             placeholder={dataUrl as PlaceholderValue}
@@ -91,14 +91,17 @@ export default function TransformedImage({
           />
 
           {isTransforming && (
-            <div className="absolute inset-0 z-20 ">
+            <div className="absolute inset-0 z-20 m-auto flex flex-col items-center justify-center gap-4 bg-background/20 p-6">
               <Image
                 src="/assets/icons/spinner.svg"
                 width={50}
                 height={50}
                 alt="Cargando..."
+                className="drop-shadow-2lg"
               />
-              <p className="text-white/80">Por favor espera...</p>
+              <p className="drop-shadow-2xllg text-white/80">
+                Por favor espere<span className="animate-pulse">...</span>
+              </p>
             </div>
           )}
         </div>
