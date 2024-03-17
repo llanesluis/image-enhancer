@@ -19,7 +19,7 @@ import {
 import { addImage, updateImage } from "@/lib/actions/image.actions";
 import { updateCreditBalance } from "@/lib/actions/user.actions";
 import { IImage } from "@/lib/database/models/image.model";
-import { debounce, deepMergeObjects } from "@/lib/utils";
+import { cn, debounce, deepMergeObjects } from "@/lib/utils";
 import {
   TransformationFormActionType,
   TransformationTypeKey,
@@ -36,6 +36,7 @@ import { useToast } from "../ui/use-toast";
 import { CustomFormField } from "./CustomFormField";
 import MediaUploader from "./MediaUploader";
 import TransformedImage from "./TransformedImage";
+import { RestartTransformationModal } from "./RestartTransformationModal";
 
 interface TransformationFormProps {
   type: TransformationTypeKey;
@@ -261,8 +262,19 @@ export default function TransformationForm({
 
     startTransition(async () => {
       await updateCreditBalance(userId, creditFee);
+      toast({
+        title: "Procesando imagen...",
+        description: "Se descontó 1 crédito de tu cuenta",
+        duration: 3000,
+      });
     });
+  };
 
+  const handleResetForm = () => {
+    form.reset();
+    setImageData(data);
+    setNewTransformation(null);
+    setTransformationConfig(null);
     setIsTransforming(false);
   };
 
@@ -273,144 +285,155 @@ export default function TransformationForm({
   }, [imageData, transformation.configuration, type]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-8">
-        {/* title */}
-        <CustomFormField
-          control={form.control as Control<TransformationFormData>}
-          name="title"
-          formLabel="Título"
-          formDescription="¿Cómo quieres llamar a esta transformación?"
-          render={({ field }) => (
-            <Input {...field} placeholder="Mi mejor fotografía.." />
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-8">
+          {/* title */}
+          <CustomFormField
+            control={form.control as Control<TransformationFormData>}
+            name="title"
+            formLabel="Título"
+            formDescription="¿Cómo quieres llamar a esta transformación?"
+            render={({ field }) => (
+              <Input {...field} placeholder="Mi mejor fotografía.." />
+            )}
+          />
+
+          {/* aspect ratio */}
+          {type === "fill" && (
+            <CustomFormField
+              control={
+                form.control as Control<TransformationFormData> as Control<TransformationFormData>
+              }
+              name="aspectRatio"
+              formLabel="Relación de aspecto"
+              className="max-w-52"
+              render={({ field }) => (
+                <Select
+                  onValueChange={(value) =>
+                    handleAspectRatioChange(value, field.onChange)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tamaño" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.keys(aspectRatioOptions).map((key) => {
+                      const option =
+                        aspectRatioOptions[key as AspectRatioOptionKey];
+                      return (
+                        <SelectItem key={key} value={option.aspectRatio}>
+                          {option.label}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              )}
+            />
           )}
-        />
 
-        {/* aspect ratio */}
-        {type === "fill" && (
-          <CustomFormField
-            control={
-              form.control as Control<TransformationFormData> as Control<TransformationFormData>
-            }
-            name="aspectRatio"
-            formLabel="Relación de aspecto"
-            className="max-w-52"
-            render={({ field }) => (
-              <Select
-                onValueChange={(value) =>
-                  handleAspectRatioChange(value, field.onChange)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Tamaño" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(aspectRatioOptions).map((key) => {
-                    const option =
-                      aspectRatioOptions[key as AspectRatioOptionKey];
-                    return (
-                      <SelectItem key={key} value={option.aspectRatio}>
-                        {option.label}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-            )}
-          />
-        )}
+          {/* prompt */}
+          {(type === "remove" || type === "recolor") && (
+            <CustomFormField
+              control={form.control as Control<TransformationFormData>}
+              name="prompt"
+              formLabel={
+                type === "remove"
+                  ? "Objeto que deseas remover"
+                  : "Objeto que deseas cambiar de color"
+              }
+              render={({ field }) => (
+                <Input
+                  value={field.value}
+                  placeholder={type === "remove" ? "El árbol" : "La camiseta"}
+                  {...field}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "prompt",
+                      e.target.value,
+                      type,
+                      field.onChange,
+                    )
+                  }
+                />
+              )}
+            />
+          )}
 
-        {/* prompt */}
-        {(type === "remove" || type === "recolor") && (
-          <CustomFormField
-            control={form.control as Control<TransformationFormData>}
-            name="prompt"
-            formLabel={
-              type === "remove"
-                ? "Objeto que deseas remover"
-                : "Objeto que deseas cambiar de color"
-            }
-            render={({ field }) => (
-              <Input
-                value={field.value}
-                placeholder={type === "remove" ? "El árbol" : "La camiseta"}
-                {...field}
-                onChange={(e) =>
-                  handleInputChange(
-                    "prompt",
-                    e.target.value,
-                    type,
-                    field.onChange,
-                  )
-                }
-              />
-            )}
-          />
-        )}
+          {/* color */}
+          {type === "recolor" && (
+            <CustomFormField
+              className="max-w-52"
+              name="color"
+              formLabel="Color deseado"
+              control={form.control as Control<TransformationFormData>}
+              render={({ field }) => (
+                <Input
+                  type="color"
+                  value={field.value}
+                  {...field}
+                  onChange={(e) =>
+                    handleColorChange(e.target.value, field.onChange)
+                  }
+                />
+              )}
+            />
+          )}
 
-        {/* color */}
-        {type === "recolor" && (
-          <CustomFormField
-            className="max-w-52"
-            name="color"
-            formLabel="Color deseado"
-            control={form.control as Control<TransformationFormData>}
-            render={({ field }) => (
-              <Input
-                type="color"
-                value={field.value}
-                {...field}
-                onChange={(e) =>
-                  handleColorChange(e.target.value, field.onChange)
-                }
-              />
-            )}
-          />
-        )}
+          {/* media uploader */}
+          <div className="grid h-fit min-h-[200px] grid-cols-1 gap-6 py-4 md:grid-cols-2">
+            {/* Original pic */}
+            <CustomFormField
+              control={form.control as Control<TransformationFormData>}
+              name="publicId"
+              className="size-full"
+              render={({ field }) => (
+                <MediaUploader
+                  onChange={field.onChange}
+                  setImageData={setImageData}
+                  publicId={field.value}
+                  imageData={imageData}
+                  type={type}
+                />
+              )}
+            />
 
-        {/* media uploader */}
-        <div className="grid h-fit min-h-[200px] grid-cols-1 gap-6 py-4 md:grid-cols-2">
-          {/* Original pic */}
-          <CustomFormField
-            control={form.control as Control<TransformationFormData>}
-            name="publicId"
-            className="size-full"
-            render={({ field }) => (
-              <MediaUploader
-                onChange={field.onChange}
-                setImageData={setImageData}
-                publicId={field.value}
-                imageData={imageData}
-                type={type}
-              />
-            )}
-          />
+            {/* Transformed pic */}
+            <TransformedImage
+              image={imageData}
+              isTransforming={isTransforming}
+              setIsTransforming={setIsTransforming}
+              transformationConfig={transformationConfig}
+              type={type}
+            />
+          </div>
 
-          {/* Transformed pic */}
-          <TransformedImage
-            image={imageData}
-            isTransforming={isTransforming}
-            setIsTransforming={setIsTransforming}
-            transformationConfig={transformationConfig}
-            type={type}
-          />
-        </div>
-
-        {/* botones */}
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            variant={"secondary"}
-            disabled={isTransforming || newTransformation === null}
-            onClick={handleTransformation}
-          >
-            Aplicar transformación
-          </Button>
-          <Button type="submit" disabled={isFormSubmitting}>
-            {action === "Create" ? "Crear" : "Actualizar"}
-          </Button>
-        </div>
-      </form>
-    </Form>
+          {/* botones */}
+          <div className="flex  flex-wrap gap-4">
+            <Button
+              type="button"
+              variant={"secondary"}
+              disabled={isTransforming || newTransformation === null}
+              onClick={handleTransformation}
+              className={cn(
+                "min-w-60 max-sm:flex-1",
+                isTransforming && "animate-pulse",
+              )}
+            >
+              {isTransforming ? "Transformando" : "Aplicar transformación"}
+            </Button>
+            <Button
+              type="submit"
+              disabled={isFormSubmitting}
+              className="min-w-32 max-sm:flex-1"
+            >
+              {action === "Create" ? "Crear" : "Actualizar"}
+            </Button>
+          </div>
+        </form>
+      </Form>
+      <RestartTransformationModal onClick={handleResetForm} />
+    </>
   );
 }
