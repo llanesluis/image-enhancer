@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        "purple-gradient": "url('/assets/images/gradient-bg.svg')",
+        banner: "url('/assets/images/banner-bg.png')",
+      },
       gridTemplateColumns: {
         autofit: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
       },
