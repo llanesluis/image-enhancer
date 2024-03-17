@@ -5,7 +5,7 @@ export const transformationsTypes = {
     subtitle:
       "Mejora imágenes eliminando ruido e imperfecciones y aumentando su resolución.",
     configuration: { restore: true },
-    icon: "imagen.svg",
+    icon: "image.svg",
   },
   removeBackground: {
     type: "removeBackground",
@@ -13,7 +13,7 @@ export const transformationsTypes = {
     subtitle:
       "Elimina el fondo de la imagen utilizando Inteligencia Artificial.",
     configuration: { removeBackground: true },
-    icon: "camara.svg",
+    icon: "camera.svg",
   },
   fill: {
     type: "fill",
@@ -21,7 +21,7 @@ export const transformationsTypes = {
     subtitle:
       "Mejora las dimensiones de una imagen utilizando Inteligencia Artificial.",
     configuration: { fillBackground: true },
-    icon: "estrellas.svg",
+    icon: "stars.svg",
   },
   remove: {
     type: "remove",
@@ -31,7 +31,7 @@ export const transformationsTypes = {
     configuration: {
       remove: { message: "", removeShadow: true, multiple: true },
     },
-    icon: "escanear.svg",
+    icon: "scan.svg",
   },
   recolor: {
     type: "recolor",
@@ -41,7 +41,7 @@ export const transformationsTypes = {
     configuration: {
       recolor: { message: "", to: "", multiple: true },
     },
-    icon: "filtro.svg",
+    icon: "filter.svg",
   },
 };
 
