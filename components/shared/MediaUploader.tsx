@@ -43,7 +43,6 @@ export default function MediaUploader({
 
     toast({
       title: "La imagen se subió correctamente",
-      description: "Se ha utilizado 1 crédito",
       variant: "default",
       duration: 3000,
     });
