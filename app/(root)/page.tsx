@@ -73,12 +73,13 @@ export default async function HomePage() {
 
         {/* features */}
         <section id="features" className="bg border-y-4 border-dashed py-8">
-          <div className=" bg-banner mb-8 flex h-72 flex-col items-center justify-center gap-8 rounded-xl bg-cover bg-no-repeat p-6 shadow-inner max-md:hidden">
-            <h1 className=" text-center text-4xl font-semibold text-white lg:text-5xl">
+          <div className="bg-banner relative mb-8 flex h-72 flex-col items-center justify-center gap-8 rounded-xl bg-cover bg-no-repeat p-6 shadow-inner max-md:hidden">
+            <div className="absolute inset-0 z-0 bg-background/20" />
+            <h1 className="z-10 text-center text-4xl font-semibold text-white lg:text-5xl">
               Desata tu creatividad con{" "}
               <span className="font-confortaa font-bold">Pickuro</span>
             </h1>
-            <ul className="flex-center w-full gap-10">
+            <ul className="flex-center z-10 w-full gap-10">
               {navLinks.slice(1, 6).map((link) => (
                 <Link
                   key={link.route}
