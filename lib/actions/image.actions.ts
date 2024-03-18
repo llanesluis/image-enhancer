@@ -6,7 +6,7 @@ import { handleError } from "../utils";
 import { revalidatePath } from "next/cache";
 import Image, { IImage } from "../database/models/image.model";
 import User, { IUser } from "../database/models/user.model";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { v2 as cloudinary } from "cloudinary";
 
 export async function getImageById(imageId: string) {
@@ -23,7 +23,7 @@ export async function getImageById(imageId: string) {
 
     return JSON.parse(JSON.stringify(image));
   } catch (error) {
-    handleError(error);
+    notFound();
   }
 }
 
