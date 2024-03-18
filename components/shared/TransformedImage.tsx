@@ -93,15 +93,15 @@ export default function TransformedImage({
           />
 
           {isTransforming && (
-            <div className="absolute inset-0 z-20 m-auto flex flex-col items-center justify-center gap-4 bg-background/20 p-6">
+            <div className="absolute inset-0 z-50 m-auto flex flex-col items-center justify-center gap-4 bg-background/50 p-6">
               <Image
                 src="/assets/icons/spinner.svg"
                 width={50}
                 height={50}
                 alt="Cargando..."
-                className="drop-shadow-2lg"
+                className="drop-shadow-2xl invert dark:invert-0"
               />
-              <p className="drop-shadow-2xllg text-white/80">
+              <p className="text-black/90 drop-shadow-2xl dark:text-white/90">
                 Por favor espere<span className="animate-pulse">...</span>
               </p>
             </div>
