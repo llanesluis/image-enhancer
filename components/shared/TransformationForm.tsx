@@ -37,6 +37,7 @@ import { CustomFormField } from "./CustomFormField";
 import MediaUploader from "./MediaUploader";
 import TransformedImage from "./TransformedImage";
 import { RestartTransformationModal } from "./RestartTransformationModal";
+import { UpdateImage } from "@/types/image";
 
 interface TransformationFormProps {
   type: TransformationTypeKey;
@@ -156,12 +157,12 @@ export default function TransformationForm({
       if (action === "Update") {
         try {
           const updatedImage = await updateImage({
-            userId,
             image: {
-              ...imageInfo,
-              _id: data!._id,
-            },
-            path: `/transformations/${data!._id}`,
+              ...imageData,
+              _id: data?._id!,
+            } as UpdateImage,
+            userId,
+            path: `/transformations/${data?._id}`,
           });
 
           if (updatedImage) {

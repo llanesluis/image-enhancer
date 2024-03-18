@@ -33,7 +33,7 @@ export type UpdateImage = {
   height: number;
   config: any;
   secureURL: string;
-  transformationURL: string;
+  transformationURL?: string;
   aspectRatio: string | undefined;
   prompt: string | undefined;
   color: string | undefined;

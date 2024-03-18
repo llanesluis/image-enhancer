@@ -103,10 +103,11 @@ export async function updateImage({ image, userId, path }: UpdateImageParams) {
   try {
     await connectToDatabase();
 
-    const imageToUpdate: IImage | null = await Image.findById(image._id);
+    const imageToUpdate = await Image.findById(image._id);
 
-    if (!imageToUpdate || imageToUpdate.author._id !== userId)
-      throw new Error("Unauthorized or image not found");
+    if (!imageToUpdate || imageToUpdate.author.toHexString() !== userId) {
+      throw new Error("Sin autorizacion, o imagen no encontrada");
+    }
 
     const updatedImage = await Image.findByIdAndUpdate(
       imageToUpdate._id,
@@ -114,7 +115,7 @@ export async function updateImage({ image, userId, path }: UpdateImageParams) {
       { new: true },
     );
 
-    revalidatePath;
+    revalidatePath(path);
 
     return JSON.parse(JSON.stringify(updatedImage));
   } catch (error) {
