@@ -16,6 +16,7 @@ interface TransformedImageProps {
   isTransforming: boolean;
   setIsTransforming?: React.Dispatch<React.SetStateAction<boolean>>;
   transformationConfig: Transformations | null;
+  hasDownload?: boolean;
 }
 
 export default function TransformedImage({
@@ -25,6 +26,7 @@ export default function TransformedImage({
   isTransforming,
   title,
   setIsTransforming,
+  hasDownload = false,
 }: TransformedImageProps) {
   const imageTitle = title || image?.title;
   const [isReadyToDownload, setIsReadyToDownload] = useState(false);
@@ -45,10 +47,10 @@ export default function TransformedImage({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
         <h3 className="text-4xl font-bold max-md:text-3xl">Modificada</h3>
 
-        {isReadyToDownload && (
+        {(isReadyToDownload || hasDownload) && (
           <Button
             type="button"
             variant={"outline"}

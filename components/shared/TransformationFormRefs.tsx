@@ -43,6 +43,7 @@ interface TransformationFormProps {
   data?: IImage | null;
   action: TransformationFormActionType;
   creditBalance: number;
+  config?: Transformations | null;
 }
 
 const TranformationFormSchema = z.object({
@@ -61,6 +62,7 @@ export default function TransformationForm({
   data = null,
   action,
   creditBalance,
+  config = null,
 }: TransformationFormProps) {
   const { toast } = useToast();
   const transformation = transformationsTypes[type];
@@ -81,7 +83,7 @@ export default function TransformationForm({
   const [newTransformation, setNewTransformation] =
     useState<Transformations | null>(null);
   const [transformationConfig, setTransformationConfig] =
-    useState<Transformations | null>(null);
+    useState<Transformations | null>(config);
   null;
   const [isTransforming, setIsTransforming] = useState(false);
   const [isPending, startTransition] = useTransition();
