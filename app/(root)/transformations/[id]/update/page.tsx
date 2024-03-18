@@ -1,5 +1,5 @@
 import Header from "@/components/shared/Header";
-import TransformationForm from "@/components/shared/TransformationFormRefs";
+import TransformationForm from "@/components/shared/TransformationForm";
 import { transformationsTypes } from "@/constants/transformations";
 import { getImageById } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
@@ -24,12 +24,15 @@ export default async function UpdateTransformation({
   if (!user?._id) throw new Error("User not found");
 
   const image: IImage = await getImageById(id);
+  if (!image?._id) throw new Error("Image not found");
 
   const { title, subtitle } =
     transformationsTypes[image.transformationType as TransformationTypeKey];
+
   return (
     <main className="container py-16">
       <Header title={title} subtitle={subtitle} />
+
       <TransformationForm
         action="Update"
         userId={user._id}

@@ -97,15 +97,17 @@ export default async function TransformationsPage({
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-4">
-          <Button asChild type="button" className=" capitalize max-sm:w-full">
-            <Link href={`/transformations/${image._id}/update`}>
-              Actualizar transformación
-            </Link>
-          </Button>
+        {userId === image.author.clerkId && (
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Button asChild type="button" className=" capitalize max-sm:w-full">
+              <Link href={`/transformations/${image._id}/update`}>
+                Actualizar transformación
+              </Link>
+            </Button>
 
-          <DeleteTransformationModal imageId={image._id} />
-        </div>
+            <DeleteTransformationModal imageId={image._id} />
+          </div>
+        )}
       </section>
     </main>
   );
