@@ -4,6 +4,7 @@ import FAQ from "@/components/sections/FAQ";
 import Features from "@/components/sections/Features";
 import Hero from "@/components/sections/Hero";
 import { getImages } from "@/lib/actions/image.actions";
+import { SignedIn } from "@clerk/nextjs";
 
 interface HomePageProps {
   searchParams: { page: number; query: string };
@@ -21,12 +22,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <Hero />
         <Explore />
         <Features />
-        <Collection
-          page={page}
-          hasSearch={true}
-          images={images}
-          totalPages={totalPages}
-        />
+        <SignedIn>
+          <Collection
+            page={page}
+            hasSearch={true}
+            images={images}
+            totalPages={totalPages}
+          />
+        </SignedIn>
         <FAQ />
       </div>
     </main>
