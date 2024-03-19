@@ -47,7 +47,6 @@ interface TransformationFormProps {
   creditBalance: number;
   config?: Transformations | null;
 }
-
 const TranformationFormSchema = z.object({
   title: z.string(),
   aspectRatio: z.string().optional(),
@@ -125,7 +124,9 @@ export default function TransformationForm({
           duration: 3000,
         });
 
-      const colorName = Color(formValues.color).keyword();
+      const color =
+        (formValues.color !== "" && Color(formValues.color).keyword()) ||
+        formValues.color;
 
       const imageInfo = {
         title: formValues.title,
@@ -138,8 +139,10 @@ export default function TransformationForm({
         transformationURL: transformationUrl,
         aspectRatio: formValues.aspectRatio,
         prompt: formValues.prompt,
-        color: colorName || formValues.color,
+        color: color,
       };
+
+      console.log("imageInfo", imageInfo);
 
       if (action === "Create") {
         try {
