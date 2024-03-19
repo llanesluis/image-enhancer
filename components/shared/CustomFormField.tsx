@@ -7,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { TransformationFormData } from "./TransformationFormRefs";
+import { TransformationFormData } from "./TransformationForm";
 
 export interface CustomFormFieldProps {
   control: Control<TransformationFormData> | undefined;
