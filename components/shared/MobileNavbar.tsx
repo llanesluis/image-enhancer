@@ -55,7 +55,7 @@ export default function MobileSidebar() {
             <SignedOut>
               <Link href="/sign-in">
                 <Button variant={"link"} className="w-full">
-                  Login
+                  Iniciar sesión
                 </Button>
               </Link>
             </SignedOut>

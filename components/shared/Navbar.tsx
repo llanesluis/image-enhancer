@@ -28,7 +28,7 @@ export default function Navbar() {
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in">
-              <Button variant={"link"}>Login</Button>
+              <Button variant={"link"}> Iniciar sesión</Button>
             </Link>
           </SignedOut>
         </div>
