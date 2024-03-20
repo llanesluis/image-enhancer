@@ -36,7 +36,7 @@ export const Search = () => {
   }, [router, searchParams, query]);
 
   return (
-    <div className="flex flex-auto gap-2">
+    <div className="flex w-full flex-auto gap-2">
       <Image
         src="/assets/icons/search.svg"
         alt="búsqueda de imágenes"
@@ -44,7 +44,11 @@ export const Search = () => {
         height={24}
       />
 
-      <Input placeholder="Buscar" onChange={(e) => setQuery(e.target.value)} />
+      <Input
+        className="w-full"
+        placeholder="Buscar"
+        onChange={(e) => setQuery(e.target.value)}
+      />
     </div>
   );
 };
