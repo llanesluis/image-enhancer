@@ -19,7 +19,7 @@ export default function Checkout({
   credits,
   plan,
 }: CheckoutProps) {
-  const toast = useToast();
+  const { toast } = useToast();
 
   useEffect(() => {
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
