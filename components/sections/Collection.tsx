@@ -50,8 +50,8 @@ export default function Collection({
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="min-w-[400px] text-3xl font-bold">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center md:justify-between">
+        <h2 className=" shrink-0 text-3xl font-bold">
           Últimas transformaciones
         </h2>
         {hasSearch && <Search />}
@@ -64,7 +64,7 @@ export default function Collection({
           ))}
         </ul>
       ) : (
-        <div className="flex-center border-dark-400/10 h-60 w-full rounded-[10px] border bg-white/20">
+        <div className="border-dark-400/10 flex h-60  w-full items-center justify-center rounded-[10px] border bg-white/20">
           <p className="font-semibold">No se encontraron resultados</p>
         </div>
       )}
@@ -80,12 +80,12 @@ export default function Collection({
               <PaginationPrevious className="hover:bg-transparent hover:text-white" />
             </Button>
 
-            <p className="flex-center p-16-medium w-fit flex-1">
+            <p className="p-16-medium flex w-fit  flex-1 items-center justify-center">
               {page} / {totalPages}
             </p>
 
             <Button
-              className="button bg-purple-gradient w-32 bg-cover text-white"
+              className="button w-32 bg-purple-gradient bg-cover text-white"
               onClick={() => handlePageChange("next")}
               disabled={Number(page) >= totalPages}
             >
