@@ -49,7 +49,7 @@ export default function Collection({
   };
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center md:justify-between">
         <h2 className=" shrink-0 text-3xl font-bold">
           Últimas transformaciones
@@ -94,7 +94,7 @@ export default function Collection({
           </PaginationContent>
         </Pagination>
       )}
-    </>
+    </div>
   );
 }
 
