@@ -29,7 +29,7 @@ export default async function ProfilePage({
 
       <section className="mt-6 flex items-center gap-4 max-md:flex-col max-md:items-start">
         {/* creditos disponibles */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 rounded-md border p-4">
           <p className="text-sm font-bold uppercase">Creditos disponibles: </p>
           <div className="flex items-center gap-2">
             <Image
@@ -44,7 +44,7 @@ export default async function ProfilePage({
         </div>
 
         {/* transformaciones */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 rounded-md border p-4">
           <p className="text-sm font-bold uppercase">
             Transformaciones hechas:
           </p>
