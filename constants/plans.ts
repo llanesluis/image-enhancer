@@ -4,10 +4,10 @@ export const plans = [
     name: "Gratuito",
     icon: "/assets/icons/free-plan.svg",
     price: 0,
-    credits: 20,
+    credits: 10,
     inclusions: [
       {
-        label: "20 Créditos Gratis",
+        label: "10 Créditos Gratis",
         isIncluded: true,
       },
       {

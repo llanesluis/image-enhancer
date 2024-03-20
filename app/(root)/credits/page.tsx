@@ -56,10 +56,11 @@ export default async function CreditsPage() {
                 ))}
               </ul>
 
-              {plan.name === "Free" ? (
+              {plan.name === "Gratuito" ? (
                 <Button
                   variant="outline"
                   className="w-full rounded-full border-accentcolor"
+                  disabled
                 >
                   Gratis
                 </Button>
