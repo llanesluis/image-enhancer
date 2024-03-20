@@ -4,13 +4,14 @@ import TransformedImage from "@/components/shared/TransformedImage";
 import { Button } from "@/components/ui/button";
 import { transformationsTypes } from "@/constants/transformations";
 import { getImageById } from "@/lib/actions/image.actions";
+import { getUserById } from "@/lib/actions/user.actions";
 import { IImage } from "@/lib/database/models/image.model";
 import { getImageSize } from "@/lib/utils";
 import { TransformationTypeKey, Transformations } from "@/types/transformation";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface TransformationsPageProps {
   params: { id: string };
@@ -20,6 +21,10 @@ export default async function TransformationsPage({
   params: { id },
 }: TransformationsPageProps) {
   const { userId } = auth();
+  if (!userId) redirect("/sign-in");
+
+  const user = await getUserById(userId);
+  if (!user?._id) redirect("/sign-in");
 
   const image: IImage = await getImageById(id);
   if (!image._id) return notFound();
@@ -97,7 +102,7 @@ export default async function TransformationsPage({
           />
         </div>
 
-        {userId === image.author.clerkId && (
+        {user._id === image.author._id && (
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Button asChild type="button" className=" capitalize max-sm:w-full">
               <Link href={`/transformations/${image._id}/update`}>
