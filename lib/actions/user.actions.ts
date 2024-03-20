@@ -22,7 +22,7 @@ export async function getUserById(clerkId: string) {
     await connectToDatabase();
 
     const user = await User.findOne({ clerkId });
-    if (!user) throw new Error("User not found");
+    if (!user) throw new Error("Usuario by id no encontrado");
 
     return JSON.parse(JSON.stringify(user)) as IUser;
   } catch (e) {
@@ -72,6 +72,7 @@ export async function updateCreditBalance(userId: string, creditFee: number) {
 
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: userId },
+      // todo: poner la credirFee
       { $inc: { creditBalance: 0 } },
       { new: true },
     );
