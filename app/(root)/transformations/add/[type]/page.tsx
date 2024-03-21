@@ -1,3 +1,4 @@
+import AlertNoCredits from "@/components/shared/AlertNoCredits";
 import Header from "@/components/shared/Header";
 import TransformationForm from "@/components/shared/TransformationForm";
 import { transformationsTypes } from "@/constants/transformations";
@@ -23,14 +24,21 @@ export default async function AddTransformationType({
 
   const { title, subtitle } = transformationsTypes[type];
 
+  const creditBalance = user.creditBalance || 0;
+
   return (
     <main className="container py-16">
       <Header title={title} subtitle={subtitle} />
+
+      <article className="my-8">
+        <AlertNoCredits creditBalance={creditBalance} />
+      </article>
+
       <TransformationForm
         action="Create"
         userId={user._id}
         type={type}
-        creditBalance={user.creditBalance || 0}
+        creditBalance={creditBalance}
       />
     </main>
   );
