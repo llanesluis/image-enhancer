@@ -23,7 +23,7 @@ export function RestartTransformationModal({
       <AlertDialogTrigger asChild>
         <Button
           className="mt-4 min-w-60 border-accentcolor max-sm:w-full"
-          variant={"outline"}
+          variant={"destructive"}
         >
           Reiniciar transformación
         </Button>
