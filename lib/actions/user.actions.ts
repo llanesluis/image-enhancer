@@ -11,6 +11,8 @@ export async function createUser(user: CreateUserParams) {
     await connectToDatabase();
 
     const newUser = await User.create(user);
+    if (!newUser) throw new Error("No se pudo crear el usuario en la DDBB");
+
     return JSON.parse(JSON.stringify(newUser));
   } catch (e) {
     handleError(e);
