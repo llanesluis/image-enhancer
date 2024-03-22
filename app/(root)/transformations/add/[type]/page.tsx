@@ -6,6 +6,18 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { TransformationTypeKey } from "@/types/transformation";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export function generateMetadata({
+  params: { type },
+}: AddTransformationTypeProps): Metadata {
+  const { title, subtitle } = transformationsTypes[type];
+
+  return {
+    title: title,
+    description: subtitle,
+  };
+}
 
 interface AddTransformationTypeProps {
   params: {

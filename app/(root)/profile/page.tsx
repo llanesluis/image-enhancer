@@ -6,6 +6,17 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { userId } = auth();
+  const user = await getUserById(userId!);
+
+  return {
+    title: `Mi perfil - ${user?.firstName} ${user?.lastName}`,
+    description: `Bienvenido a tu perfil, ${user?.firstName} ${user?.lastName}. Aquí podrás ver las imágenes que has transformado y tu saldo de créditos.`,
+  };
+}
 
 interface ProfilePageProps {
   searchParams: {

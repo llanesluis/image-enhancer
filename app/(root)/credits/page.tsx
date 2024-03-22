@@ -6,6 +6,13 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { SignedIn, auth } from "@clerk/nextjs";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Créditos",
+  description:
+    "Al crear tu cuenta recibes 10 créditos gratuitos. Obtén más créditos para que puedas seguir transformando tus imágenes.",
+};
 
 export default async function CreditsPage() {
   const { userId } = await auth();

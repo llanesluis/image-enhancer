@@ -9,10 +9,22 @@ import { IImage } from "@/lib/database/models/image.model";
 import { getImageSize } from "@/lib/utils";
 import { TransformationTypeKey, Transformations } from "@/types/transformation";
 import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
+export async function generateMetadata({
+  params: { id },
+}: TransformationsPageProps): Promise<Metadata> {
+  const image: IImage = await getImageById(id);
+
+  const description = `Esta imágen fue transfornada por ${image.author.firstName} ${image.author.lastName} y es de tipo "${transformationsTypes[image.transformationType as TransformationTypeKey].title}"`;
+  return {
+    title: image.title,
+    description,
+  };
+}
 interface TransformationsPageProps {
   params: { id: string };
 }
