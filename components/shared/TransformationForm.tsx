@@ -411,27 +411,29 @@ export default function TransformationForm({
           </div>
 
           {/* botones */}
-          <div className="flex  flex-wrap gap-4">
-            <Button
-              type="button"
-              variant={"secondary"}
-              disabled={isTransforming || newTransformation === null}
-              onClick={handleTransformation}
-              className={cn(
-                "min-w-60 max-sm:flex-1",
-                isTransforming && "animate-pulse",
-              )}
-            >
-              {isTransforming ? "Transformando..." : "Aplicar transformación"}
-            </Button>
-            <Button
-              type="submit"
-              disabled={isFormSubmitting}
-              className="min-w-32 max-sm:flex-1"
-            >
-              {action === "Create" ? "Crear" : "Actualizar"}
-            </Button>
-          </div>
+          {creditBalance > 0 && (
+            <div className="flex  flex-wrap gap-4">
+              <Button
+                type="button"
+                variant={"secondary"}
+                disabled={isTransforming || newTransformation === null}
+                onClick={handleTransformation}
+                className={cn(
+                  "min-w-60 max-sm:flex-1",
+                  isTransforming && "animate-pulse",
+                )}
+              >
+                {isTransforming ? "Transformando..." : "Aplicar transformación"}
+              </Button>
+              <Button
+                type="submit"
+                disabled={isFormSubmitting}
+                className="min-w-32 max-sm:flex-1"
+              >
+                {action === "Create" ? "Crear" : "Actualizar"}
+              </Button>
+            </div>
+          )}
         </form>
       </Form>
       {action === "Create" && (
