@@ -14,8 +14,12 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Pickuro",
-  description: "Mejora tus imágenes con el poder de la Inteligencia Artificial",
+  title: {
+    template: "%s | Pickuro - Mejora tus imágenes con IA",
+    default: "Pickuro - Mejora tus imágenes con IA",
+  },
+  description:
+    "Mejora tus imágenes con el poder de la Inteligencia Artificial. Remueve el fondo de tus fotos, mejora la calidad de tus imágenes y mucho más. ¡Pruébalo ahora!",
   keywords:
     "IA, Inteligencia Artificial, Imágenes, Edición de Imágenes, Fotografía, Remover Fondo, Enhancer, Photo Enhancer, Background Remover, Background Remover AI, Enhancer AI, Photo Enhancer AI",
 };
