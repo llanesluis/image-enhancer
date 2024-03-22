@@ -1,4 +1,5 @@
 import Collection from "@/components/sections/Collection";
+import AlertNoCredits from "@/components/shared/AlertNoCredits";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
@@ -23,13 +24,16 @@ export default async function ProfilePage({
     userId: user._id,
     page,
   });
+
+  const creditBalance = user.creditBalance || 0;
+
   return (
     <main className="container py-16">
       <Header title="Mi perfil" />
 
-      <section className="mt-6 flex items-center gap-4 max-md:flex-col max-md:items-start">
+      <section className=" my-6 flex items-center gap-4 max-md:flex-col max-md:items-start">
         {/* creditos disponibles */}
-        <div className="flex items-center gap-4 rounded-md border p-4">
+        <div className="flex items-center gap-4 rounded-md border p-4 max-md:w-full max-md:p-2">
           <p className="text-sm font-bold uppercase">Creditos disponibles: </p>
           <div className="flex items-center gap-2">
             <Image
@@ -44,7 +48,7 @@ export default async function ProfilePage({
         </div>
 
         {/* transformaciones */}
-        <div className="flex items-center gap-4 rounded-md border p-4">
+        <div className="flex items-center gap-4 rounded-md border p-4 max-md:w-full max-md:p-2">
           <p className="text-sm font-bold uppercase">
             Transformaciones hechas:
           </p>
@@ -62,6 +66,8 @@ export default async function ProfilePage({
           </div>
         </div>
       </section>
+
+      {creditBalance <= 5 && <AlertNoCredits creditBalance={creditBalance} />}
 
       <section className="mt-10 border-t border-accentcolor/20 pt-10">
         <Collection images={userImages?.data} hasSearch={false} page={1} />
