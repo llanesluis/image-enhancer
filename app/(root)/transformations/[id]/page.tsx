@@ -6,7 +6,7 @@ import { transformationsTypes } from "@/constants/transformations";
 import { getImageById } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 import { IImage } from "@/lib/database/models/image.model";
-import { getImageSize } from "@/lib/utils";
+import { getImageSize, getTimeFromNow } from "@/lib/utils";
 import { TransformationTypeKey, Transformations } from "@/types/transformation";
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
@@ -41,51 +41,55 @@ export default async function TransformationsPage({
   const image: IImage = await getImageById(id);
   if (!image._id) return notFound();
 
+  const timeFromNow = getTimeFromNow(image.createdAt || new Date());
   return (
     <main className="container py-16">
       <Header title={image.title} />
 
-      <section className="mt-5 flex flex-wrap gap-4">
-        <div className=" md:p-16-medium flex gap-2">
-          <p className="">Transformación:</p>
-          <p className="capitalize">
-            {
-              transformationsTypes[
-                image.transformationType as TransformationTypeKey
-              ].title
-            }
-          </p>
+      <section>
+        <span className="text-muted-foreground">{timeFromNow}</span>
+
+        <div className="mt-5 flex flex-wrap gap-4">
+          <div className=" md:p-16-medium flex gap-2">
+            <p className="">Transformación:</p>
+            <p className="capitalize">
+              {
+                transformationsTypes[
+                  image.transformationType as TransformationTypeKey
+                ].title
+              }
+            </p>
+          </div>
+          {image.prompt && (
+            <>
+              <p className="hidden md:block">&#x25CF;</p>
+              <div className="flex gap-2 ">
+                <p className="text-dark-600">Prompt:</p>
+                <p className="capitalize text-accentcolor">{`"${image.prompt}"`}</p>
+              </div>
+            </>
+          )}
+          {image.color && (
+            <>
+              <p className="hidden md:block">&#x25CF;</p>
+              <div className="p-14-medium md:p-16-medium flex gap-2">
+                <p className="text-dark-600">Color:</p>
+                <p className="capitalize text-accentcolor">{image.color}</p>
+              </div>
+            </>
+          )}
+          {image.aspectRatio && (
+            <>
+              <p className=" hidden md:block">&#x25CF;</p>
+              <div className=" flex gap-2">
+                <p className="">Relación de aspecto:</p>
+                <p className="capitalize text-accentcolor">
+                  {image.aspectRatio}
+                </p>
+              </div>
+            </>
+          )}
         </div>
-
-        {image.prompt && (
-          <>
-            <p className="hidden md:block">&#x25CF;</p>
-            <div className="flex gap-2 ">
-              <p className="text-dark-600">Prompt:</p>
-              <p className="capitalize text-accentcolor">{`"${image.prompt}"`}</p>
-            </div>
-          </>
-        )}
-
-        {image.color && (
-          <>
-            <p className="hidden md:block">&#x25CF;</p>
-            <div className="p-14-medium md:p-16-medium flex gap-2">
-              <p className="text-dark-600">Color:</p>
-              <p className="capitalize text-accentcolor">{image.color}</p>
-            </div>
-          </>
-        )}
-
-        {image.aspectRatio && (
-          <>
-            <p className=" hidden md:block">&#x25CF;</p>
-            <div className=" flex gap-2">
-              <p className="">Relación de aspecto:</p>
-              <p className="capitalize text-accentcolor">{image.aspectRatio}</p>
-            </div>
-          </>
-        )}
       </section>
 
       <section className="mt-10 border-t border-accentcolor/20 pt-10">
