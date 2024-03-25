@@ -1,5 +1,4 @@
 import Header from "@/components/shared/Header";
-import { Button } from "@/components/ui/button";
 import { MoveLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
