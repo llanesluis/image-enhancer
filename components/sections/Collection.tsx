@@ -85,7 +85,7 @@ export default function Collection({
             </p>
 
             <Button
-              className="button w-32 bg-purple-gradient bg-cover text-white"
+              className="button w-32 bg-accentcolor bg-cover text-white"
               onClick={() => handlePageChange("next")}
               disabled={Number(page) >= totalPages}
             >
