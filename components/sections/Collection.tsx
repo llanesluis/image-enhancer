@@ -57,24 +57,11 @@ export default function Collection({
         {hasSearch && <Search />}
       </div>
 
-      {images.length > 0 ? (
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 ">
-          {images.map((image) => (
-            <CollectionCard image={image} key={image._id} />
-          ))}
-        </ul>
-      ) : (
-        <div className="border-dark-400/10 flex h-60  w-full items-center justify-center rounded-[10px] border bg-white/20">
-          <p className="font-semibold">No se encontraron resultados</p>
-        </div>
-      )}
-
       {totalPages > 1 && (
         <Pagination className="mt-10">
           <PaginationContent className="flex w-full">
             <Button
               disabled={Number(page) <= 1}
-              className="button w-32 bg-accentcolor bg-cover text-white"
               onClick={() => handlePageChange("prev")}
             >
               <PaginationPrevious className="hover:bg-transparent hover:text-white" />
@@ -85,7 +72,6 @@ export default function Collection({
             </p>
 
             <Button
-              className="button w-32 bg-accentcolor bg-cover text-white"
               onClick={() => handlePageChange("next")}
               disabled={Number(page) >= totalPages}
             >
@@ -93,6 +79,18 @@ export default function Collection({
             </Button>
           </PaginationContent>
         </Pagination>
+      )}
+
+      {images.length > 0 ? (
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 ">
+          {images.map((image) => (
+            <CollectionCard image={image} key={image._id} />
+          ))}
+        </ul>
+      ) : (
+        <div className="border-dark-400/10 flex h-60  w-full items-center justify-center rounded-[10px] border bg-white/20">
+          <p className="font-semibold">No se encontraron resultados</p>
+        </div>
       )}
     </div>
   );
