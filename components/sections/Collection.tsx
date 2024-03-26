@@ -101,7 +101,7 @@ function CollectionCard({ image }: { image: IImage }) {
     <li>
       <Link
         href={`/transformations/${image._id}`}
-        className="flex flex-1 cursor-pointer flex-col gap-5 rounded-[16px] border-2 border-accentcolor/10 bg-background p-4 shadow-md transition-all hover:shadow-accentcolor/10"
+        className="flex flex-1 cursor-pointer flex-col gap-5 rounded-md border-2 border-accentcolor/10 bg-background p-4 shadow-md transition-all hover:shadow-accentcolor/10"
       >
         <CldImage
           src={image.publicId}
@@ -110,7 +110,7 @@ function CollectionCard({ image }: { image: IImage }) {
           height={image.height}
           {...image.config}
           loading="lazy"
-          className="h-52 w-full rounded-[10px] object-cover"
+          className="h-52 w-full rounded-md object-cover"
           sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
         />
         <div className="flex items-center justify-between">
