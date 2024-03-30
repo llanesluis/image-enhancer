@@ -24,7 +24,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const totalPages = images?.totalPage || 1;
 
   return (
-    <main className="overflow-hidden py-20">
+    <main className=" relative overflow-hidden py-20">
+      <div className=" absolute -right-56 top-80 size-[500px] rounded-full bg-accentcolor/20 blur-3xl" />
+      <div />
       <div className="container flex flex-col space-y-24">
         <Hero />
         <Explore />
