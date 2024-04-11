@@ -8,6 +8,8 @@ interface AlertNoCreditsProps {
 }
 
 export default function AlertNoCredits({ creditBalance }: AlertNoCreditsProps) {
+  if (creditBalance > 6) return null;
+
   if (creditBalance <= 0)
     return (
       <Alert
