@@ -11,16 +11,6 @@ export default function Hero() {
         </span>
       </h1>
 
-      <div className="absolute -left-56 opacity-10 ">
-        <Image
-          src="/pickuro-icon.png"
-          alt="logo"
-          width={550}
-          height={550}
-          className="pointer-events-none"
-        />
-      </div>
-
       <div className="w-full flex-1">
         <Image
           src={"/assets/images/hero-image.jpg"}
