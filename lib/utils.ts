@@ -110,22 +110,25 @@ export const dataUrl = `data:image/svg+xml;base64,${toBase64(
 
 // DOWNLOAD IMAGE
 export const downloadImage = (url: string, filename: string) => {
-  try {
-    if (!url) {
-      throw new Error("¡No se proporcionó la URL del recurso!");
-    }
-
-    const a = document.createElement("a");
-    a.href = url;
-
-    // a.download = `${filename.replace(" ", "_")}.png`;
-    a.setAttribute("download", `${filename.replace(" ", "_")}.png`);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  } catch (error) {
-    console.error(error);
+  if (!url) {
+    throw new Error("¡No se proporcionó la URL del recurso!");
   }
+
+  fetch(url)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+
+      if (filename && filename.length > 0) {
+        a.setAttribute("download", `${filename.replace(" ", "_")}.png`);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    })
+    .catch((e) => console.log(e));
 };
 
 // FORM URL QUERY
