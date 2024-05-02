@@ -109,18 +109,17 @@ export const dataUrl = `data:image/svg+xml;base64,${toBase64(
 )}`;
 
 // DOWNLOAD IMAGE
-export const download = (url: string, filename: string) => {
+export const downloadImage = (url: string, filename: string) => {
   try {
     if (!url) {
-      throw new Error(
-        "¡No se proporcionó la URL del recurso! Debes proporcionar una",
-      );
+      throw new Error("¡No se proporcionó la URL del recurso!");
     }
 
     const a = document.createElement("a");
-    a.target = "_blank";
     a.href = url;
-    a.download = `${filename.replace(" ", "_")}.png`;
+
+    // a.download = `${filename.replace(" ", "_")}.png`;
+    a.setAttribute("download", `${filename.replace(" ", "_")}.png`);
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

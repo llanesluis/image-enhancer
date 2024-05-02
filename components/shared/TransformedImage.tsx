@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { CldImage, getCldImageUrl } from "next-cloudinary";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
-import { dataUrl, debounce, download, getImageSize } from "@/lib/utils";
+import { dataUrl, debounce, downloadImage, getImageSize } from "@/lib/utils";
 import { useState } from "react";
 
 interface TransformedImageProps {
@@ -42,7 +42,7 @@ export default function TransformedImage({
       ...transformationConfig,
     });
 
-    download(cloudinaryUrl, imageTitle || "imagen-modificada");
+    downloadImage(cloudinaryUrl, imageTitle || "imagen-modificada");
   };
 
   return (
