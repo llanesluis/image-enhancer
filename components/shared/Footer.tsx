@@ -12,7 +12,7 @@ export default function Footer() {
           height={28}
           className="h-auto"
         />
-        <section className="flex justify-between *:flex-1">Info aquí</section>
+        <section className="flex justify-between">Info aquí</section>
       </div>
 
       <p className="mt-4 text-center text-sm text-gray-600">
