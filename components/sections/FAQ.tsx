@@ -2,7 +2,7 @@ import Header from "../shared/Header";
 
 export default function FAQ() {
   return (
-    <section className="flex flex-col items-center gap-12">
+    <section className="flex flex-col items-center gap-12" id="faq">
       <div className="text-center">
         <Header title="Preguntas frecuentes 🤔" />
       </div>

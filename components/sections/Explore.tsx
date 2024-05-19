@@ -13,24 +13,26 @@ export default function Explore() {
         desaparecer objetos no deseados y mucho más.
       </p>
       <div className="flex w-full justify-normal gap-2 md:justify-center">
-        <Link href={"/#features"}>
+        <Link href={"/#features"} className="cursor-pointer">
           <Button
             size={"lg"}
             className={cn(
-              "bg-accentcolor hover:bg-[#799cff] active:bg-[#5784FF]",
+              "cursor-pointer bg-accentcolor hover:bg-[#799cff] active:bg-[#5784FF]",
             )}
             color="accentcolor"
           >
             Comenzar
           </Button>
         </Link>
-        <Button
-          size={"lg"}
-          variant={"outline"}
-          className={cn("border-accentcolor")}
-        >
-          Aprender más
-        </Button>
+        <Link href={"/#faq"} className="cursor-pointer">
+          <Button
+            size={"lg"}
+            variant={"outline"}
+            className={cn(" border-accentcolor")}
+          >
+            Aprender más
+          </Button>
+        </Link>
       </div>
     </section>
   );
