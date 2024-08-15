@@ -1,91 +1,42 @@
-"use client";
-
-import { SignedIn } from "@clerk/nextjs";
-import Link from "next/link";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 import { normalNavLinks, premiumNavLinks } from "@/constants/navlinks";
-import Image from "next/image";
+import { SignedIn } from "@clerk/nextjs";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { NavLink } from "./NavLink";
 
 export default function DesktopNavbar() {
-  const pathname = usePathname();
-
   return (
-    <NavigationMenu orientation="vertical">
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Herramientas</NavigationMenuTrigger>
-          <NavigationMenuContent className="border-t-4 border-t-accentcolor">
-            <DesktopNavLinks />
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+    <nav className="flex">
+      <Popover>
+        <PopoverTrigger>
+          <span className="px-4 py-2 text-sm transition hover:text-accentcolor">
+            Herramientas
+          </span>
+        </PopoverTrigger>
+        <PopoverContent className="hidden w-64 md:block">
+          <ul>
+            {normalNavLinks.map((link) => {
+              if (link.route === "/") return;
+              return (
+                <li key={link.route}>
+                  <NavLink navLink={link} />
+                </li>
+              );
+            })}
+          </ul>
+        </PopoverContent>
+      </Popover>
 
-        <SignedIn>
+      <SignedIn>
+        <ul className="flex">
           {premiumNavLinks.map((link) => {
-            const isActive = pathname === link.route;
             return (
-              <NavigationMenuItem key={link.route}>
-                <Link href={link.route} passHref legacyBehavior>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      isActive &&
-                        "bg-accentcolor/10 font-bold text-accentcolor hover:bg-accentcolor/10",
-                    )}
-                  >
-                    {link.label}
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+              <li key={link.route} className="list-none">
+                <NavLink navLink={link} />
+              </li>
             );
           })}
-        </SignedIn>
-      </NavigationMenuList>
-    </NavigationMenu>
-  );
-}
-
-export function DesktopNavLinks() {
-  const pathname = usePathname();
-
-  return (
-    <nav>
-      <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[1fr_1fr]">
-        {normalNavLinks.map((link) => {
-          const isActive = pathname === link.route;
-          if (link.route === "/") return;
-          return (
-            <li key={link.route}>
-              <Link href={link.route} legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-secondary",
-                    isActive &&
-                      "bg-accentcolor/10 font-bold text-accentcolor hover:bg-accentcolor/10",
-                  )}
-                >
-                  <Image
-                    height={24}
-                    width={24}
-                    src={link.icon}
-                    alt={`${link.label} icon`}
-                  />
-                  <p className="text-sm">{link.label}</p>
-                </NavigationMenuLink>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+        </ul>
+      </SignedIn>
     </nav>
   );
 }

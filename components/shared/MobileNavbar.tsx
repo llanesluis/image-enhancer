@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetClose,
@@ -73,11 +72,10 @@ export function MobileNavLinks() {
       {/* NORMAL NAV LINKS */}
       <ul className="space-y-2">
         {normalNavLinks.map((navLink) => {
-          const isActive = pathname === navLink.route;
           return (
             <li key={navLink.route}>
               <SheetClose asChild key={navLink.route}>
-                <NavLink navLink={navLink} isActive={isActive} />
+                <NavLink navLink={navLink} />
               </SheetClose>
             </li>
           );
@@ -88,11 +86,10 @@ export function MobileNavLinks() {
       <SignedIn>
         <ul className="space-y-2 pt-4">
           {premiumNavLinks.map((navLink) => {
-            const isActive = pathname === navLink.route;
             return (
               <li key={navLink.route}>
                 <SheetClose asChild key={navLink.route}>
-                  <NavLink navLink={navLink} isActive={isActive} />
+                  <NavLink navLink={navLink} />
                 </SheetClose>
               </li>
             );

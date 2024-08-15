@@ -26,7 +26,7 @@ export default function User() {
         </Avatar>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="max-w-60 border-t-4 border-t-accentcolor">
+      <DropdownMenuContent className="max-w-60">
         <DropdownMenuLabel className="flex items-center gap-2">
           <Avatar className="size-8">
             <AvatarImage src={user?.imageUrl} />

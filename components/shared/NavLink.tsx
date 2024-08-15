@@ -1,6 +1,9 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavLinkProps {
   navLink: {
@@ -8,17 +11,17 @@ interface NavLinkProps {
     label: string;
     icon: string;
   };
-  isActive: boolean;
 }
-export function NavLink({ navLink, isActive, ...props }: NavLinkProps) {
+export function NavLink({ navLink, ...props }: NavLinkProps) {
+  const pathname = usePathname();
+  const isActive = pathname === navLink.route;
   return (
     <Link
       {...props}
       href={navLink.route}
       className={cn(
-        "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:bg-secondary",
-        isActive &&
-          "bg-accentcolor/10 font-bold text-accentcolor hover:bg-accentcolor/10",
+        "flex min-h-12 items-center gap-2 rounded-md px-4 py-2 text-sm transition hover:text-accentcolor",
+        isActive && "font-bold text-accentcolor",
       )}
     >
       <Image
@@ -31,7 +34,7 @@ export function NavLink({ navLink, isActive, ...props }: NavLinkProps) {
           isActive ? "opacity-100" : undefined,
         )}
       />
-      <p className="text-sm">{navLink.label}</p>
+      <span>{navLink.label}</span>
     </Link>
   );
 }
