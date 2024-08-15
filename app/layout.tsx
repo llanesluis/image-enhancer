@@ -1,16 +1,14 @@
 import Providers from "@/components/providers/providers";
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import "./globals.css";
 import "@fontsource-variable/comfortaa";
-import { Toaster } from "@/components/ui/toaster";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -36,18 +34,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className="motion-safe:scroll-smooth"
       >
-        <body
-          className={cn("font-montserrat antialiased", montserrat.variable)}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Providers>{children}</Providers>
-            <Toaster />
-          </ThemeProvider>
+        <body className={cn("font-inter antialiased", inter.variable)}>
+          <Providers>{children}</Providers>
         </body>
       </html>
     </ClerkProvider>

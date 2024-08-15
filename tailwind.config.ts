@@ -26,8 +26,7 @@ const config = {
         autofit: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
       },
       fontFamily: {
-        montserrat: "var(--font-montserrat)",
-        confortaa: ["Comfortaa Variable", "system-ui"],
+        inter: ["var(--font-inter)", "system-ui"],
       },
       colors: {
         border: "hsl(var(--border))",

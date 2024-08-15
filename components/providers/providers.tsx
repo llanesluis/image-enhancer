@@ -1,13 +1,19 @@
 import { ReactNode } from "react";
-import { TailwindIndicator } from "../helpers/tailwind-indicator";
-import { NextThemesIndicator } from "../helpers/next-themes-indicator";
+import { ThemeProvider } from "./theme-provider";
+import { Toaster } from "../ui/toaster";
+import { ScreenIndicators } from "../indicators/screen-indicators";
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
       {children}
-      <TailwindIndicator />
-      <NextThemesIndicator />
-    </>
+      <ScreenIndicators />
+      <Toaster />
+    </ThemeProvider>
   );
 }

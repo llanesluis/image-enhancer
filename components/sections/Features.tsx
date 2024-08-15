@@ -10,7 +10,7 @@ export default function Features() {
         <div className="absolute inset-0 z-0 bg-background/20" />
         <h1 className="z-10 text-center text-4xl font-semibold text-white lg:text-5xl">
           Pon a prueba tu creatividad con{" "}
-          <span className="font-confortaa font-bold">Pickuro</span>
+          <span className="font-bold">Pickuro</span>
         </h1>
         <ul className="z-10 flex w-full  items-center justify-center gap-10">
           {navLinks.slice(1, 6).map((link) => (
