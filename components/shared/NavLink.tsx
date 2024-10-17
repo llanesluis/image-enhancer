@@ -9,7 +9,6 @@ interface NavLinkProps {
   navLink: {
     route: string;
     label: string;
-    icon: string;
   };
 }
 export function NavLink({ navLink, ...props }: NavLinkProps) {
@@ -24,16 +23,6 @@ export function NavLink({ navLink, ...props }: NavLinkProps) {
         isActive && "font-bold text-accentcolor",
       )}
     >
-      <Image
-        src={navLink.icon}
-        alt={`${navLink.label} icon`}
-        width={24}
-        height={24}
-        className={cn(
-          "shrink-0 opacity-50 transition",
-          isActive ? "opacity-100" : undefined,
-        )}
-      />
       <span>{navLink.label}</span>
     </Link>
   );

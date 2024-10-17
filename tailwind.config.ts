@@ -21,13 +21,13 @@ const config = {
       backgroundImage: {
         "purple-gradient": "url('/assets/images/gradient-bg.svg')",
         banner: "url('/assets/images/banner-bg.png')",
+        "gradient-linear": "var(--gradient-linear)",
+        "gradient-radial": "var(--gradient-radial)",
       },
       gridTemplateColumns: {
         autofit: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
       },
-      fontFamily: {
-        inter: ["var(--font-inter)", "system-ui"],
-      },
+      fontFamily: {},
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

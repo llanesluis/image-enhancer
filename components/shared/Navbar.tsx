@@ -8,8 +8,8 @@ import MobileSidebar from "./MobileNavbar";
 
 export default function Navbar() {
   return (
-    <header className="sticky -top-[1px] z-50 bg-background shadow shadow-foreground/10">
-      <div className="container flex h-20 items-center justify-between gap-4">
+    <header className="sticky -top-[1px] z-50 bg-background/70 shadow shadow-foreground/10 backdrop-blur-sm">
+      <div className="container flex h-16 items-center justify-between gap-4">
         {/* logo */}
         <Link href="/">
           <Image

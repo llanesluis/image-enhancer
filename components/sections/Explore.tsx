@@ -16,10 +16,7 @@ export default function Explore() {
         <Link href={"/#features"} className="cursor-pointer">
           <Button
             size={"lg"}
-            className={cn(
-              "cursor-pointer bg-accentcolor hover:bg-[#799cff] active:bg-[#5784FF]",
-            )}
-            color="accentcolor"
+            className={cn("bg-gradient-linear cursor-pointer")}
           >
             Comenzar
           </Button>
@@ -28,7 +25,7 @@ export default function Explore() {
           <Button
             size={"lg"}
             variant={"outline"}
-            className={cn(" border-accentcolor")}
+            className={cn("hover:bg-gradient-linear border-accentcolor")}
           >
             Aprender más
           </Button>

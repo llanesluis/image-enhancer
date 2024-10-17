@@ -3,12 +3,12 @@ import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import "@fontsource-variable/comfortaa";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -34,7 +34,9 @@ export default function RootLayout({
         suppressHydrationWarning
         className="motion-safe:scroll-smooth"
       >
-        <body className={cn("font-inter antialiased", inter.variable)}>
+        <body className={cn("relative isolate antialiased", poppins.className)}>
+          <div className="absolute top-0 z-[-2] min-h-full w-full bg-background bg-[radial-gradient(ellipse_60%_60%_at_50%_-20%,hsl(var(--accent)/.20),rgba(255,255,255,0))]"></div>
+
           <Providers>{children}</Providers>
         </body>
       </html>
